@@ -20,3 +20,6 @@ Learning materials and points
 	Must Watch/ Revisit
 	
 	https://youtu.be/QyUFheng6J0
+	
+http://jstherightway.org/
+ Go through it to get different pointers to read
