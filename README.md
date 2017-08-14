@@ -26,3 +26,4 @@ http://jstherightway.org/
  
 ### Javascript Promise
 	- Good intro read some basic stuff online and then go through it, then this will make sense: https://developers.google.com/web/fundamentals/getting-started/primers/promises
+	- Describes how resolve and reject is handled even if they arent handled https://www.toptal.com/javascript/javascript-promises
