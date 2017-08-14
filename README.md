@@ -25,5 +25,6 @@ http://jstherightway.org/
  Go through it to get different pointers to read
  
 ### Javascript Promise
+	- https://coligo.io/javascript-promises-plain-simple/
 	- Good intro read some basic stuff online and then go through it, then this will make sense: https://developers.google.com/web/fundamentals/getting-started/primers/promises
 	- Describes how resolve and reject is handled even if they arent handled https://www.toptal.com/javascript/javascript-promises
