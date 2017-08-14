@@ -23,3 +23,6 @@ Learning materials and points
 	
 http://jstherightway.org/
  Go through it to get different pointers to read
+ 
+### Javascript Promise
+	- Good intro read some basic stuff online and then go through it, then this will make sense: https://developers.google.com/web/fundamentals/getting-started/primers/promises
