@@ -28,3 +28,6 @@ http://jstherightway.org/
 	- https://coligo.io/javascript-promises-plain-simple/
 	- Good intro read some basic stuff online and then go through it, then this will make sense: https://developers.google.com/web/fundamentals/getting-started/primers/promises
 	- Describes how resolve and reject is handled even if they arent handled https://www.toptal.com/javascript/javascript-promises
+
+### Map, Filter and Reduce
+	- Good overview of the 3 functions though it is in python you can map it to JS http://jinankjain.github.io/python,/functional/programming/2016/08/18/map-filter-reduce-in-python/
