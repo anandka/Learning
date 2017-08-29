@@ -34,6 +34,6 @@ Learning materials and points
 		- Good blog which can give you use cases and handson example. beware it uses old syntax just use it for understanding http://elijahmanor.com/reducing-filter-and-map-down-to-reduce/
 
 
-General Architecture
+# General Architecture
 	1. http://www.aosabook.org/en/distsys.html
 		A nice and concise article to understand Architecture. Includes caching, proxies, microservices, db-particians/Indexes, Queues etc.
