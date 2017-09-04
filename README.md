@@ -33,6 +33,9 @@ Learning materials and points
 		- Good overview of the 3 functions though it is in python you can map it to JS http://jinankjain.github.io/python,/functional/programming/2016/08/18/map-filter-reduce-in-python/
 		- Good blog which can give you use cases and handson example. beware it uses old syntax just use it for understanding http://elijahmanor.com/reducing-filter-and-map-down-to-reduce/
 
+	### Misc Stuff about JS
+		1. Consise list of Npms and their description
+			https://github.com/sindresorhus/awesome-nodejs#tutorials
 
 # General Architecture
 	1. http://www.aosabook.org/en/distsys.html
