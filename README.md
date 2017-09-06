@@ -36,6 +36,10 @@ Learning materials and points
 	### Misc Stuff about JS
 		1. Consise list of Npms and their description
 			https://github.com/sindresorhus/awesome-nodejs#tutorials
+			
+# Node JS
+	1. Structuring your nodejs app from scratch
+		https://hackhands.com/how-to-get-started-on-the-mean-stack/
 
 # General Architecture
 	1. http://www.aosabook.org/en/distsys.html
