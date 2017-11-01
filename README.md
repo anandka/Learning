@@ -41,7 +41,7 @@ Learning materials and points
 	1. Structuring your nodejs app from scratch
 		https://hackhands.com/how-to-get-started-on-the-mean-stack/
 
-#MongoDB- Mongoose
+# MongoDB- Mongoose
 	1. Understanding discrimators in mongoose - https://anthonychu.ca/post/cosmos-db-mongoose-discriminators/
 
 # General Architecture
