@@ -42,7 +42,7 @@ Learning materials and points
 		https://hackhands.com/how-to-get-started-on-the-mean-stack/
 
 # MongoDB- Mongoose
-	1. Understanding discrimators in mongoose - https://anthonychu.ca/post/cosmos-db-mongoose-discriminators/
+	1. Understanding discriminator in mongoose - https://anthonychu.ca/post/cosmos-db-mongoose-discriminators/
 
 # General Architecture
 	1. http://www.aosabook.org/en/distsys.html
