@@ -41,6 +41,9 @@ Learning materials and points
 	1. Structuring your nodejs app from scratch
 		https://hackhands.com/how-to-get-started-on-the-mean-stack/
 
+#MongoDB- Mongoose
+	1. Understanding discrimators in mongoose - https://anthonychu.ca/post/cosmos-db-mongoose-discriminators/
+
 # General Architecture
 	1. http://www.aosabook.org/en/distsys.html
 		A nice and concise article to understand Architecture. Includes caching, proxies, microservices, db-particians/Indexes, Queues etc.
