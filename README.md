@@ -51,4 +51,6 @@ Learning materials and points
 	1. http://www.aosabook.org/en/distsys.html
 		A nice and concise article to understand Architecture. Includes caching, proxies, microservices, db-particians/Indexes, Queues etc.
 		
+	2. Sticky Sessions on Load Balancers : https://shlomoswidler.com/2010/04/elastic-load-balancing-with-sticky-sessions.html
+		
 	
