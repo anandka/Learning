@@ -54,8 +54,9 @@ Learning materials and points
 	2. Sticky Sessions on Load Balancers : https://shlomoswidler.com/2010/04/elastic-load-balancing-with-sticky-sessions.html
 	
 	
-#Handy Tools/Plugins for browser or codeeditor
+# Handy Tools/Plugins for browser or codeeditor
 	1. Plugin to highlight references of variables directly in GitHub (browser)
 		https://medium.com/@pd4d10/introducing-octohint-e1a3e4b80c47
 		
-	
+	2. Plugin to show IDE like folder structure directly on GitHub (browesr)
+		https://github.com/buunguyen/octotree
