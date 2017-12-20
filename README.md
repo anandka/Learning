@@ -60,3 +60,7 @@ Learning materials and points
 		
 	2. Plugin to show IDE like folder structure directly on GitHub (browesr)
 		https://github.com/buunguyen/octotree
+		
+		
+# Other Misc stuff for general understanding
+	1. GRPC -  after you read general stuff on internet and dont understand whats it all (atleast happened to me) but please try first. and then go and watch this video and things start to make sense https://youtu.be/RoXT_Rkg8LA
