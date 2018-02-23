@@ -42,6 +42,12 @@ Learning materials and points
 		https://hackhands.com/how-to-get-started-on-the-mean-stack/
 
 # GOLang
+	Whenever you decide to start with go just go through these 2 tutorials blindly without expectations to understand what you can do and just map to the challanges that you can solve with it. (Challanges that you had faced previously)
+	https://gobyexample.com/
+	https://tour.golang.org/welcome/1
+	
+	After you go through them now you can dig deeper with stuff that you liked. Some of the reads that I found intresting and eased my understaning and scenarios in which to use them are listed below
+	
 	1. Good read on goroutines and channels
 		https://pragmacoders.com/multithreading-go-tutorial/
 # MongoDB- Mongoose
