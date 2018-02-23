@@ -41,6 +41,9 @@ Learning materials and points
 	1. Structuring your nodejs app from scratch
 		https://hackhands.com/how-to-get-started-on-the-mean-stack/
 
+# GOLang
+	1. Good read on goroutines and channels
+		https://pragmacoders.com/multithreading-go-tutorial/
 # MongoDB- Mongoose
 	1. Understanding discriminator in mongoose - https://anthonychu.ca/post/cosmos-db-mongoose-discriminators/
 
