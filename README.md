@@ -72,7 +72,11 @@ Learning materials and points
 		
 		
 # Other Misc stuff for general understanding
-	1. Protocol Buffers ( protobuf ) Simple and consise video to understand why protobuf  https://youtu.be/uGYZn6xk-hA
-	2. Great video which explains the usecases when you should use protobuff and when you shouldnt
-		https://youtu.be/9IUrAZHxn3s
-	2. GRPC -  after you read general stuff on internet and dont understand whats it all (atleast happened to me) but please try first. and then go and watch this video and things start to make sense https://youtu.be/RoXT_Rkg8LA
+	1. Protocol Buffers ( protobuf )
+		- Simple and consise video to understand why protobuf  https://youtu.be/uGYZn6xk-hA
+		- Great video which explains the usecases when you should use protobuff and when you shouldnt
+			https://youtu.be/9IUrAZHxn3s
+		- After viewing above 2 videos this seems to be a detailed on highlighting the nitty gritty details of protobuff
+			(Someone please inform me if it as worth? I havent watched it completely)
+			https://youtu.be/4784u5PRc5o
+	2. GRPC -  after you read general stuff on internet and dont understand whats it all (atleast happened to me) but please try 			   first. and then go and watch this video and things start to make sense https://youtu.be/RoXT_Rkg8LA
