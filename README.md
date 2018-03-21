@@ -89,5 +89,5 @@ Learning materials and points
 				2. Makes piplines as first class citizen of jenkins.
 				3. Good view of pipline and direct as well as prettier view of logs.
 				4. Entire Jenkins can be driven through code which is good less lot less configuration.
-				5. You can directly run build steps in docker.
+				5. You can directly run build steps in docker. This means less pre-configuration of Jenkins host required.
 			https://www.youtube.com/watch?v=TsWkZLLU-s4
