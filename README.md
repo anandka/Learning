@@ -81,3 +81,13 @@ Learning materials and points
 			https://youtu.be/4784u5PRc5o
 	2. GRPC -  after you read general stuff on internet and dont understand whats it all (atleast happened to me) but please try 			   first. and then go and watch this video and things start to make sense 
 		https://youtu.be/RoXT_Rkg8LA
+
+# Jenkins
+	1. BlueOcean: 
+		- Good video to understand the capabilities of BlueOcean plugin and advantages that it provides 
+			suchas: 1. Gives good visualization/ Dashboard.
+				2. Makes piplines as first class citizen of jenkins.
+				3. Good view of pipline and direct as well as prettier view of logs.
+				4. Entire Jenkins can be driven through code which is good less lot less configuration.
+				5. You can directly run build steps in docker.
+			https://www.youtube.com/watch?v=TsWkZLLU-s4
