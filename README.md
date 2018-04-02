@@ -91,3 +91,9 @@ Learning materials and points
 				4. Entire Jenkins can be driven through code which is good less lot less configuration.
 				5. You can directly run build steps in docker. This means less pre-configuration of Jenkins host required.
 			https://www.youtube.com/watch?v=TsWkZLLU-s4
+			
+# GIT:
+	1. search for git real on youtube gives good intro in small videos of overall git
+	2. Fixing Common Mistakes and Undoing Bad Commits  : https://youtu.be/FdZecVxzJbk
+	3. Details about git stash: https://youtu.be/KLEDKgMmbBI?list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx
+	
