@@ -91,7 +91,11 @@ Learning materials and points
 				4. Entire Jenkins can be driven through code which is good less lot less configuration.
 				5. You can directly run build steps in docker. This means less pre-configuration of Jenkins host required.
 			https://www.youtube.com/watch?v=TsWkZLLU-s4
-			
+	2. Scripted Pipeline: 
+		- Documentation is a mess. Some of the good articles that I found are as below.
+			-https://dzone.com/articles/how-to-use-the-jenkins-scripted-pipeline
+			- There are various parts in this blog very well drafter
+				-https://medium.com/devopslinks/a-hacky-hackers-guide-to-hacking-together-jenkins-scripted-pipelines-and-getting-them-to-do-things-a1e943cb8d11
 # GIT:
 	1. search for git real on youtube gives good intro in small videos of overall git
 	2. Fixing Common Mistakes and Undoing Bad Commits  : https://youtu.be/FdZecVxzJbk
