@@ -96,6 +96,8 @@ Learning materials and points
 			-https://dzone.com/articles/how-to-use-the-jenkins-scripted-pipeline
 			- There are various parts in this blog very well drafter
 				-https://medium.com/devopslinks/a-hacky-hackers-guide-to-hacking-together-jenkins-scripted-pipelines-and-getting-them-to-do-things-a1e943cb8d11
+	
+	3. Jenkins Build Variables : https://wiki.jenkins.io/display/JENKINS/Building+a+software+project#Buildingasoftwareproject-belowJenkinsSetEnvironmentVariables
 # GIT:
 	1. search for git real on youtube gives good intro in small videos of overall git
 	2. Fixing Common Mistakes and Undoing Bad Commits  : https://youtu.be/FdZecVxzJbk
