@@ -103,3 +103,5 @@ Learning materials and points
 	2. Fixing Common Mistakes and Undoing Bad Commits  : https://youtu.be/FdZecVxzJbk
 	3. Details about git stash: https://youtu.be/KLEDKgMmbBI?list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx
 	
+# Kernel:
+	1. https://www.linux.org/threads/understanding-the-linux-kernel.12508/
