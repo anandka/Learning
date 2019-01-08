@@ -105,3 +105,6 @@ Learning materials and points
 	
 # Kernel:
 	1. https://www.linux.org/threads/understanding-the-linux-kernel.12508/
+	
+# PowerPoint Presentation
+	1. To create word cloud / word mashup - https://wordart.com/create
