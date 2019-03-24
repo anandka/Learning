@@ -108,3 +108,7 @@ Learning materials and points
 	
 # PowerPoint Presentation
 	1. To create word cloud / word mashup - https://wordart.com/create
+	
+# Kubernetes
+	1. Taints and tolerance
+		https://www.youtube.com/watch?v=j3KfwvABCbQ&list=PL2We04F3Y_43dAehLMT5GxJhtk3mJtkl5&index=15
