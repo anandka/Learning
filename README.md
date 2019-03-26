@@ -112,3 +112,7 @@ Learning materials and points
 # Kubernetes
 	1. Taints and tolerance
 		https://www.youtube.com/watch?v=j3KfwvABCbQ&list=PL2We04F3Y_43dAehLMT5GxJhtk3mJtkl5&index=15
+		
+# Self Signed Certificates
+	1. Understanding how CA and certificates works
+		https://youtu.be/T4Df5_cojAs
