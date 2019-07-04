@@ -55,6 +55,11 @@ Learning materials and points
 
 # Cloud
 	1. Google cloud : https://medium.com/@grapesfrog/a-gcp-flowchart-a-day-2d57cc109401
+	
+# VMWare Data Centre
+	1. Videos from basic understanding and key points CBT Nuggets! 
+	https://www.youtube.com/playlist?list=PL7QEEnLdBv2KEx-dOxyDEC2hBQFMse5X_
+	
 
 # General Architecture
 	1. http://www.aosabook.org/en/distsys.html
