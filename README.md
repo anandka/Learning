@@ -114,6 +114,9 @@ Learning materials and points
 # PowerPoint Presentation
 	1. To create word cloud / word mashup - https://wordart.com/create
 	
+# Docker 
+	1. Docker Internals (Strictly Technical)  - Curious about how namespaces , cgroups works for docker? Then watch the video
+	https://www.youtube.com/watch?v=8fi7uSYlOdc&feature=youtu.be
 # Kubernetes
 	1. Taints and tolerance
 		https://www.youtube.com/watch?v=j3KfwvABCbQ&list=PL2We04F3Y_43dAehLMT5GxJhtk3mJtkl5&index=15
