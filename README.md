@@ -117,6 +117,12 @@ Learning materials and points
 # Docker 
 	1. Docker Internals (Strictly Technical)  - Curious about how namespaces , cgroups works for docker? Then watch the video
 	https://www.youtube.com/watch?v=8fi7uSYlOdc&feature=youtu.be
+	 Take aways from above video 
+		1. How docker works internally
+		2. Its no magic but all internal OS/Kernel level things 
+		3. Why CGroups is important 
+		      -- I never gave lot of importance to this before but after seeing the video I realised that how host machine and containers are soo much linked . One wrong container can be really harmful  (somewhere around 33 min this section starts ) 
+		4.  How Pid's , namespaces, mounts are shared and blocked from host and container 
 # Kubernetes
 	1. Taints and tolerance
 		https://www.youtube.com/watch?v=j3KfwvABCbQ&list=PL2We04F3Y_43dAehLMT5GxJhtk3mJtkl5&index=15
