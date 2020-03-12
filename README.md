@@ -130,3 +130,8 @@ Learning materials and points
 # Self Signed Certificates
 	1. Understanding how CA and certificates works
 		https://youtu.be/T4Df5_cojAs
+		
+		
+# API Gateway
+	1. What is API Gateway used for? what can it do?
+	https://www.youtube.com/watch?v=vHQqQBYJtLI
