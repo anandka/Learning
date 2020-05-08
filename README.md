@@ -105,6 +105,7 @@ Learning materials and points
 	3. Jenkins Build Variables : https://wiki.jenkins.io/display/JENKINS/Building+a+software+project#Buildingasoftwareproject-belowJenkinsSetEnvironmentVariables
 # GIT:
 	1. search for git real on youtube gives good intro in small videos of overall git
+		https://app.pluralsight.com/course-player?clipId=139ae6dd-af56-45a5-aa4f-9924129ef340 
 	2. Fixing Common Mistakes and Undoing Bad Commits  : https://youtu.be/FdZecVxzJbk
 	3. Details about git stash: https://youtu.be/KLEDKgMmbBI?list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx
 	
