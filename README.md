@@ -124,6 +124,12 @@ Learning materials and points
 			- Once stopped automatically inserts the video inside the slide
 			- Can rightclick and select to autoplay
 			- Can rightclick and TRIM the video! (How cool is that :D )
+	5. How to pick colors for PPT -- https://www.youtube.com/watch?v=N3hdg2-KP1A
+		- Other Pallet options
+			- https://color.adobe.com/trends
+			- https://colorsupplyyy.com/app
+			- https://coolors.co/palettes/trending
+			- https://colorhunt.co/
 # Docker 
 	1. Docker Internals (Strictly Technical)  - Curious about how namespaces , cgroups works for docker? Then watch the video
 	https://www.youtube.com/watch?v=8fi7uSYlOdc&feature=youtu.be
