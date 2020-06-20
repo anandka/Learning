@@ -130,6 +130,9 @@ Learning materials and points
 			- https://colorsupplyyy.com/app
 			- https://coolors.co/palettes/trending
 			- https://colorhunt.co/
+			- Create your own pallet from company logo  - https://youtu.be/8YxmhkaZmCw?t=332 using color.adobe.com
+	6. How to modify slide background with good gradients  https://www.youtube.com/watch?v=AxDDGpx3E-g
+	
 # Docker 
 	1. Docker Internals (Strictly Technical)  - Curious about how namespaces , cgroups works for docker? Then watch the video
 	https://www.youtube.com/watch?v=8fi7uSYlOdc&feature=youtu.be
