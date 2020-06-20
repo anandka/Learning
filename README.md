@@ -118,7 +118,12 @@ Learning materials and points
 	    https://www.youtube.com/watch?v=0GW4vT7d3nc
 	3. Creating a ZOOM in or into effect in powerpoint https://www.youtube.com/watch?v=V5v66rr5pmQ
 	4. Recording Screen : Trick no 4. time 3.34  https://www.youtube.com/watch?v=I_dS0_HUVdg (Suggested to view the complete video)
-	
+		- Screen recording is highly customizable
+			- Can Record any window running on the desktop
+			- Can pause when required (Example filling up the credentials)
+			- Once stopped automatically inserts the video inside the slide
+			- Can rightclick and select to autoplay
+			- Can rightclick and TRIM the video! (How cool is that :D )
 # Docker 
 	1. Docker Internals (Strictly Technical)  - Curious about how namespaces , cgroups works for docker? Then watch the video
 	https://www.youtube.com/watch?v=8fi7uSYlOdc&feature=youtu.be
