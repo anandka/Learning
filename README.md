@@ -114,8 +114,9 @@ Learning materials and points
 	
 # PowerPoint Presentation
 	1. To create word cloud / word mashup - https://wordart.com/create
-	2. Good tricks to know and learn (animations, pictures, clear background etc)
+	2. Good tricks to know and learn (animations, pictures, clear background, export ppt as video or gif etc)
 	    https://www.youtube.com/watch?v=0GW4vT7d3nc
+	3. Creating a ZOOM in or into effect in powerpoint https://www.youtube.com/watch?v=V5v66rr5pmQ
 	
 # Docker 
 	1. Docker Internals (Strictly Technical)  - Curious about how namespaces , cgroups works for docker? Then watch the video
