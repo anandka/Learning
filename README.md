@@ -132,6 +132,10 @@ Learning materials and points
 			- https://colorhunt.co/
 			- Create your own pallet from company logo  - https://youtu.be/8YxmhkaZmCw?t=332 using color.adobe.com
 	6. How to modify slide background with good gradients  <https://www.youtube.com/watch?v=AxDDGpx3E-g>
+	7. Misc Shortcuts
+		- Format multiple elements across slides! 
+			- Dont have to click on the element and the format option again and again. Just select the element whose format you want to copy and double click on the format option and just click on all the other elements whose format you want to change.
+			- Similarly if there is a shape you want to use multiple times. (Example: Connector to connect various shapes on your slide) You can right-click on the shpae (in our example connector) and select "lock drawing mode" once you do that you can use the selected shape as many times as you want. To get out of the drawing mode just hit "Esc"
 	
 # Docker 
 	1. Docker Internals (Strictly Technical)  - Curious about how namespaces , cgroups works for docker? Then watch the video
