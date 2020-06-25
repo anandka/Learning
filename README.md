@@ -136,7 +136,10 @@ Learning materials and points
 		- Format multiple elements across slides! 
 			- Dont have to click on the element and the format option again and again. Just select the element whose format you want to copy and double click on the format option and just click on all the other elements whose format you want to change. (Example : Formatting the title across many slides, Formatting the text boxes on the same slide etc)
 			- Similarly if there is a shape you want to use multiple times. (Example: Connector to connect various shapes on your slide) You can right-click on the shpae (in our example connector) and select "lock drawing mode" once you do that you can use the selected shape as many times as you want. To get out of the drawing mode just hit "Esc"
+			- Copy paste element multiple times with same gap between them (Use Ctrl + D)
+	
 	8. Sample ppt for ideas (Select desired category and search through the templates) https://graphicriver.net/presentation-templates/powerpoint-templates/business
+	9. Convert Text inside various shapes to a text box   https://www.youtube.com/watch?v=fgJUOD75Vw8  (Add a pic to the slide -> select picture as well as all the shapes whose text you want -> Click on format tab of picture  -> Select picture layout and anything random -> It will appear as smartart -> select it and click on format -> convert to text)
 	
 # Docker 
 	1. Docker Internals (Strictly Technical)  - Curious about how namespaces , cgroups works for docker? Then watch the video
