@@ -151,7 +151,11 @@ Learning materials and points
 		      -- I never gave lot of importance to this before but after seeing the video I realised that how host machine and containers are soo much linked . One wrong container can be really harmful  (somewhere around 33 min this section starts ) 
 		4.  How Pid's , namespaces, mounts are shared and blocked from host and container 
 # Kubernetes
-	1. Taints and tolerance
+	1. Starters 
+		1.1 Troubleshooting (Havent been through the complete course but seems to be good to get overall scenerios )
+			https://kube.academy/courses/troubleshooting-kubernetes
+	2. Intermediate
+		2.1 Taints and tolerance
 		https://www.youtube.com/watch?v=j3KfwvABCbQ&list=PL2We04F3Y_43dAehLMT5GxJhtk3mJtkl5&index=15
 		
 # Self Signed Certificates
