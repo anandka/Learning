@@ -82,6 +82,8 @@ Udemy Course - Mumshad Mannambeth
  - Then Rank role based on resource avalibilty and then selects appropriate node
  - People can write their own schedular if needed  
 
+----------------
+
 ## Kubernetes Defination file 
 At highlevel all the kubernetes defination file has 4 required components 
 
@@ -94,7 +96,7 @@ At highlevel all the kubernetes defination file has 4 required components
 
 All the information on above tag depends on what kind of resource you are going to make. So check the documentation as required.
 
-
+----------------
 #### Replica Sets
  - k8s previously used to have Replication Controllers 
  - As name suggests used to keep eyes on the pods and restart if any pods are killed or dies. To bring pods to desired state
@@ -102,7 +104,12 @@ All the information on above tag depends on what kind of resource you are going 
  - Both are similar in primary functionality just that Replicat sets have additional field in configuration called `selector`
  - `selector ` is used to identify pods which will be run or already running by thier lables and then Replica sets starts to monitor them
  - catch here is pods need not be created by Replica set to be monitored but can be existing pods with the tags that `selector is looking for`
+ - Replica set adds and checks for `ownerReferences`
+   - `metadata.ownerReference`
+   - Only if object doesnt have a owner i.e its orphaned then it takes it on the watch list.
+   - `that tag` is also tied to garbage collection mechanism (TBD)
  - IDK why this was introduced as it can complicate things if existing pods are running different images! -- NEED TO READ MORE! 
+ -
 
 #### Namespaces 
  - to keep things inside same bucket! 
@@ -161,3 +168,71 @@ All the information on above tag depends on what kind of resource you are going 
  - exposed service similar to Node Port but adds over a LB if its supported.
  - eg in cloud it will add a loadbalancer
  - if there is no support for LB it will just behave as node Port
+
+## Imperative vs Declarative
+Imperative is something that is done step by step one instruction at a time.
+EG. - previously you had to guide the cab driver to your destination asking the person to take various turns and identify the landmark.
+
+Similarly if you provide every instruction via CMD to K8s its know as imperative 
+sample commands , 
+
+~~~
+run
+create
+replace
+delete
+edit
+scale
+expose
+etc...
+~~~
+
+Delarative is something that you just declare the state and let the engine decide how it wants to reach there. Or what kind of statements it wasnts to execute
+
+EG. - If you use app like OLA/Uber/Grab  you just need to enter the start and destination rest all is controlled by the app.
+
+Similarly in k8s if you write declarative yaml files and apply it k8s will create things for you. example command is
+
+~~~
+apply
+~~~
+
+**Note : Never mix imperative and declarative style. And it is adviced to follow Declarative style. (Unless for exam where you want to do quick stuff without maintaining history)**
+
+
+For  Declarative style it looks at 3 copies before executing any command 
+
+1. Local Copy
+2. Live object Defination in K8s
+3. Last Applied Configration (Stored in JSON format inside object description)
+
+- If there is change in current local and live object in terms of image etc it applies it and updates the last applied configration.
+- If there is modification /deletion on the lables it will first check if previous version had it take appropriate action 
+  - EG tag is being deleted. So no present in local but was present in previous version hence delete it
+  - For this example if the tag didnt exist in the previous version but was on the live object defination then no action will be taken
+  - I dont think this is very important and we need to read more about this! But if I face any issues about this will come and update this section
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------
+#### Additional things to read
+	- etcd
+	  - backup and frequency
+	  - security as it has secrets
+	- Garbage collections 
+	- Why Replica Sets were introduced over Replication Controller?
+	  - Exsting pods with same lables can have different images
+	  - isnt that an issue?
+	- Best practies for labeling! 
