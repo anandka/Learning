@@ -213,16 +213,91 @@ For  Declarative style it looks at 3 copies before executing any command
   - I dont think this is very important and we need to read more about this! But if I face any issues about this will come and update this section
 
 
+## Scheduling (Taint/Tolerations, Node Selector and Affinity)
+For considering scheduling one needs to think of taints & tolerance, node selector and node affinity/anti-affinity in one box.
+
+Because all of these compliment each other and you need to understand the behaviour well to understan how it works.
+
+- Taint (This is only for/on nodes)
+  - To accept pods with certain tolerance.
+- Toleration (This is for/on pods)
+  - To make pods tolerent to the taints applied on the node
+- Node Addinity /Node Selector (This is for/on pods)
+  - To make certain pods run on certian nodes 
+  - Lables are placed on nodes 
 
 
+#### Taint / Toleration 
+
+##### Taint 
+- Tait is for node!  -- Tolerance is for Pod
+- If a node is tainted it will only accept pods which has its tolerance 
+
+~~~
+ kubectl taint nodes <node-name> key=value:<<TAINT EFFECT>>
+~~~
+
+- Taint Effect determines what happes to the pods which do not tolerate the taints.
+  - Different type of taint effects are as below
+      - **NoSchedule** : Pods are not scheduled if no tolerance
+      - **PreferNodSchedule** : Pods are prefered to not be scheduled but no gurantee
+      - **NoExecute** : New pods wont be scheduled and existing pods will be deleted
+    	  - NoExecute has additional field called `tolerationSeconds` 
+    	  - If above field is set then k8s waits for that time before any pods are deleted 
+- Think of Taint effect as what can happen if taint is applied before any pods are scheduled and what should happen if node had existing pods and then taint was applied! 
+
+- K8s also uses taints as internal mechanism for kubernetes to work
+  - Example master nodes are tainted to run only master components 
+  - Whenever a node is unhealthy/unreachable or having any other issues/pressure like cpu,memory,io,pid . K8s internally sets taits to reflect the node behaviour
+  - Based on this taints scheduler determines if pods are to be sent to these nodes or not! So in short unhealty status of node is reflected to scheduler via Taints! 
+
+~~~
+ kubectl describe node kubemaster | grep taint
+ 
+ o/p should be something like>> node-role.kubernetes.io/master:NoSchedule
+~~~
+
+- Adding and removing taints
+
+~~~
+kubectl taint nodes node1 key1=value1:NoSchedule
 
 
+# To remove the taint added by the command above, you can run:
 
+kubectl taint nodes node1 key1=value1:NoSchedule-
+~~~
 
+##### Toleration
+- Pods should be attached tolerance so they can run on nodes which has same taint.
+- You specify a toleration for a pod in the PodSpec as below
 
+~~~
+tolerations:
+- key: "key1"
+  operator: "Equal"
+  value: "value1"
+  effect: "NoSchedule"
+- key: "key1"
+  operator: "Equal"
+  value: "value1"
+  effect: "NoExecute"
+~~~
 
+- Different kind of operator
+  - Equal
+  - Exists
+   
+~~~
+The default value for operator is Equal.
 
+An empty key with operator Exists matches all keys, values and effects which means this will tolerate everything.
 
+An empty effect matches all effects with key
+~~~
+
+**For more details and specific usecases or premutations and combinations of how it works refer documentation its good [taints and toleration] (
+https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)**
 
 
 
