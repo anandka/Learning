@@ -366,11 +366,62 @@ spec:
 
 
 
+## Networking for Kubernetes
 
+- Network Interface
+	- Physical or logical entity on VM which connects it to network
+	- Example : eth0, docker0 etc
+	- one Network interface can have 'N'no of IP's and that too of different subnets
+- Switch
+	- Used to connect devices in same Network
+- Router
+	- Used to connect 2 different Networks (Imagine your house router)
+- Gateway
+	- Way to tell a particular device where the router is
+	- Think this in term of the node/VM
+	- Its a configuration which points to Router
+- DNS
+- Network Namespaces
+- Docker Networking
 
+##### Understanding Linux/VM level routing
 
+- Read about "ip" command this is prefered over ifconfig
+- Read about "route" / "ip route" command
+	- These commands help to create routing tables on the machine
+	- Good Youtube video to understand this [Link] (https://www.youtube.com/watch?v=c4rfWsV4H-I&ab_channel=StevenGordon)
+	- Cheat sheet to understand the commands [Link] (https://access.redhat.com/sites/default/files/attachments/rh_ip_command_cheatsheet_1214_jcs_print.pdf)
 
+~~~~
+  ip link			: List and modify interfaces on host
+  ip addr			: to see Ip assigned to interfaces
+  ip addr add		: set Ip on interfaces
 
+  ip route		: see route table
+  ip route add	: add entry in route table
+~~~~
+
+- One network interface can forward packets to another
+	- Use case Router is connected to many networks that is how it achieves it
+	- Modify below file for pack forward
+
+~~~~
+  cat /proc/sys/net/ipv4/ip_forward
+  >> 0  -- No Forward
+  >> 1  -- Forward
+
+~~~~
+
+- Above file or commands are not persistent across reboot you need to modify specific files to make these settings persist over reboot
+- File for ip forward peristance is `/etc/sysctl.conf`
+
+~~~~
+Entry in above file should be
+
+...
+  net.ipv4.ip_forward = 1
+...
+~~~~
 
 
 
