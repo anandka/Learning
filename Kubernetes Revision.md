@@ -115,6 +115,8 @@ All the information on above tag depends on what kind of resource you are going 
  - to keep things inside same bucket! 
  - Namespaces share the networking and Storage
  - quota requirment can be implemented on top of Namespace
+ 	- Can set default minimum cpu and mem for every pod in NS
+ 	- Upper cap of CPU,MEM for the NS is setup 
  - 4 NS are created when k8s is started
    - default
      - if you dont specify any namespace everything goes in default namespace 
@@ -298,6 +300,83 @@ An empty effect matches all effects with key
 
 **For more details and specific usecases or premutations and combinations of how it works refer documentation its good [taints and toleration] (
 https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)**
+
+#### Node Selector
+- If you want to schedule a particular pod on particular/group of nodes then node selector is used
+- nodeSelector is the simplest recommended form of node selection constraint. `nodeSelector` is a field of PodSpec
+
+~~~
+ nodeSelector:
+   <<node_label>>
+~~~
+
+- to label a node
+  - `kubectl label nodes <node-name> <label_key>=<label_value>`
+- **Limitations of node Selector** 
+  - Only Single Lable can be used
+  - If you want advance logics like "Run this pod on Large or Medium Nodes" or "Run this pod on nodes which is not Small" 
+  - Node selector wont be able to do that. You need to use `Node Affinity` 
+
+
+#### Node Affinity  (TBD Pod Affinity/AntiAffinity)
+
+1. The affinity/anti-affinity language is more expressive. The language offers more matching rules besides exact matches created with a logical AND operation;
+2. You can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler can't satisfy it, the pod will still be scheduled;
+3. You can constrain against labels on other pods running on the node (or other topological domain), rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located (TBD)
+
+~~~
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd            
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+~~~
+
+- Importat things to look at in above defination is the long expression (Type of Node Affinity) and Operator
+- Operator (Types)
+	- In
+	- NotIn
+	- Exists
+	- DoesNotExisits  
+	- Gt
+	- Lt
+
+- Types of node Affinity
+	- `requiredDuringSchedulingIgnoredDuringExecution`
+	- `preferredDuringSchedulingIgnoredDuringExecution`
+	- Future
+		- `requiredDuringSchedulingRequiredDuringExecution ` 	
+- What happens if there are no labels or lables are changed at certain later stage ?
+  - Type of node Affinity determines this behaviour 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
