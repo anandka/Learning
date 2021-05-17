@@ -559,6 +559,7 @@ ip link set veth-blue-br netns v-net-0
 ~~~
 
 - assign the ip address to the veth-red and blue and UP them to test the ping
+
 ~~~
 ip -n red addr add 192.168.15.1 dev veth-red
 ip -n blue addr add 192.168.15.2 dev veth-blue
