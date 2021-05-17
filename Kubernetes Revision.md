@@ -425,11 +425,147 @@ Entry in above file should be
 
 
 
+##### DNS 
 
+- Resolving Name to Ip address
+- Each host has `/etc/hosts` file for local information to do DNS resolution
+~~~~
+ cat /etc/hosts
+ 192.168.1.155 test
+ 192.168.1.11  db
+~~~~
 
+- But if you have lot of machines and lot of DNS names its best to have your own DNS server
+- To point to internal dns server you can modify `/etc/resolv.conf`
 
+~~~~
+cat /etc/resolv.conf
 
+nameserver 192.168.1.100					<-- points to DNS server
+search mycompany.com prod.mycompany.com <-- special type to append domain Name
+~~~~
 
+- So even if you are doing `ping db` it will modify it to `ping.mycompany.com`
+- i.e. domain name is appended with `search` tag
+
+- By default `/etc/hosts` has preference over `DNS server`
+- This can be verified or modified in the file `/etc/nsswitch.conf`
+
+~~~~
+cat /etc/nsswitch.conf
+
+...
+passwd:   files nis
+group:    files nis
+
+hosts:    files dns myhostname    
+...
+~~~~
+
+- Host information first comes from /etc/hosts (files), then a DNS server (dns), and if neither of those work, at least a fallback of "myhostname" so that the local machine has some name.
+
+- one can host their own DNS server - example useing Core DNS
+
+### Network NameSpaces! (Referred to as NNS in section below)
+
+- You can divide Network into different namespaces similar to the way docker does with process
+- In docker container you are only able to see the process of container and not that of host.
+- However on host you can see the process running inside the docker
+- Linux has way to implement network namespaces
+-  To list down current NNS  `ip netns`
+-  To create new NNS 
+
+~~~
+ip netns add red
+ip netns add blue
+
+>> ip netns 
+	 red
+	 blue
+~~~
+
+- Network NS dont have any network interfaces provisioned by default except for the loopback 
+- to check for Network interface run `ip link` on host so you will see eth0, docker0 etc etc
+- but if you run the same inside the NNS you will only see `lo`
+- you can exec in NNS similar as we do in docker by below command where `ip netns exec` means exec `red` is the name of NNS and `ip link ` is the command that we want to run inside it
+
+~~~
+ip netns exec red ip link
+>> lo
+~~~
+
+- To talk between the NNS you need `Virtual cable`
+- To create a cable run command
+
+~~~~
+ip link add veth-red type veth peer name veth-blue
+~~~~
+
+- The above command says `create a cable of type veth` with `network interface veth-red` connected to `network interface veth-bule`
+- now you need to connect respectvie network interface to NNS
+
+~~~
+ip link set veth-red netns red
+ip link set veth-blue netns blue
+
+~~~
+
+- Now we need to assign IP to both the NIC
+
+~~~
+ip netns exec red addr add 192.168.15.1 dev veth-red
+ip netns exec blue addr add 192.168.15.2 dev veth-blue
+~~~
+
+- Now we need start the link / network interface in each NS
+- `ip -n`  is short form for `ip netns exec`
+~~~
+ip -n red link set veth-red up
+ip -n red link set veth-blue up
+~~~
+
+- try to ping from red NS to blue NS it should work
+- `ip -n red ping 192.168.15.2`  should work
+
+**But notw the challange is you can keep on creating these virtual cables and adding it to different NNS because there are be 100's of them on same host hence enters Virtual BRIDGE**
+
+#### Bridge -  (Virtual Switch)
+- Linux Bridge - native way to create virtual switch
+- Other option is Open Vswitch
+- Command to create Virtual bridge 
+
+~~~
+ip link add v-net-0 type bridge
+ip link set dev v-net-0 up 
+~~~
+
+- For the host machine Bridge is just like any other network interface. can be listed by the command `ip link`
+- But for NNS it can act like `Switch`
+- Connect the NNS to the `bridge`
+
+~~~
+ip link add veth-red type veth peer name veth-red-br
+ip link add veth-blue type veth peer name veth-blue-br
+~~~
+
+- Now link the respective new NIC to NNS or bridge
+
+~~~
+ip link set veth-red netns red
+ip link set veth-red-br netns v-net-0
+
+ip link set veth-blue netns blue
+ip link set veth-blue-br netns v-net-0
+~~~
+
+- assign the ip address to the veth-red and blue and UP them to test the ping
+~~~
+ip -n red addr add 192.168.15.1 dev veth-red
+ip -n blue addr add 192.168.15.2 dev veth-blue
+
+ip -n red link set veth-red up
+ip -n red link set veth-blue up
+~~~
 
 -------------
 #### Additional things to read
