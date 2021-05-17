@@ -166,3 +166,6 @@ Learning materials and points
 # API Gateway
 	1. What is API Gateway used for? what can it do?
 	https://www.youtube.com/watch?v=vHQqQBYJtLI
+	
+# Linux! 
+	1. Understanding Route table on linux machine!  -- https://www.youtube.com/watch?v=c4rfWsV4H-I&ab_channel=StevenGordon
