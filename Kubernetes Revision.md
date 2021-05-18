@@ -392,58 +392,59 @@ spec:
 	- Good Youtube video to understand this [Link] (https://www.youtube.com/watch?v=c4rfWsV4H-I&ab_channel=StevenGordon)
 	- Cheat sheet to understand the commands [Link] (https://access.redhat.com/sites/default/files/attachments/rh_ip_command_cheatsheet_1214_jcs_print.pdf)
 
-~~~~
+~~~
   ip link			: List and modify interfaces on host
   ip addr			: to see Ip assigned to interfaces
   ip addr add		: set Ip on interfaces
 
   ip route		: see route table
   ip route add	: add entry in route table
-~~~~
+~~~
 
 - One network interface can forward packets to another
-	- Use case Router is connected to many networks that is how it achieves it
+	- Use case: Router is connected to many networks that is how it achieves it
 	- Modify below file for pack forward
 
-~~~~
+~~~
   cat /proc/sys/net/ipv4/ip_forward
   >> 0  -- No Forward
   >> 1  -- Forward
 
-~~~~
+~~~
 
 - Above file or commands are not persistent across reboot you need to modify specific files to make these settings persist over reboot
 - File for ip forward peristance is `/etc/sysctl.conf`
 
-~~~~
+~~~
 Entry in above file should be
 
 ...
   net.ipv4.ip_forward = 1
 ...
-~~~~
 
+~~~
 
 
 ##### DNS 
 
 - Resolving Name to Ip address
 - Each host has `/etc/hosts` file for local information to do DNS resolution
-~~~~
+ 
+~~~
  cat /etc/hosts
  192.168.1.155 test
  192.168.1.11  db
-~~~~
+~~~
 
 - But if you have lot of machines and lot of DNS names its best to have your own DNS server
 - To point to internal dns server you can modify `/etc/resolv.conf`
 
-~~~~
+~~~
 cat /etc/resolv.conf
 
 nameserver 192.168.1.100					<-- points to DNS server
 search mycompany.com prod.mycompany.com <-- special type to append domain Name
-~~~~
+~~~
 
 - So even if you are doing `ping db` it will modify it to `ping.mycompany.com`
 - i.e. domain name is appended with `search` tag
@@ -451,7 +452,7 @@ search mycompany.com prod.mycompany.com <-- special type to append domain Name
 - By default `/etc/hosts` has preference over `DNS server`
 - This can be verified or modified in the file `/etc/nsswitch.conf`
 
-~~~~
+~~~
 cat /etc/nsswitch.conf
 
 ...
@@ -460,11 +461,11 @@ group:    files nis
 
 hosts:    files dns myhostname    
 ...
-~~~~
+~~~
 
 - Host information first comes from /etc/hosts (files), then a DNS server (dns), and if neither of those work, at least a fallback of "myhostname" so that the local machine has some name.
 
-- one can host their own DNS server - example useing Core DNS
+- one can host their own DNS server - example using Core DNS
 
 ### Network NameSpaces! (Referred to as NNS in section below)
 
@@ -567,6 +568,43 @@ ip -n blue addr add 192.168.15.2 dev veth-blue
 ip -n red link set veth-red up
 ip -n red link set veth-blue up
 ~~~
+
+- [TBD ] Some additional pointers to read about IPtables, NAT and Masquerading to make request go outside from NNS via router to internet and back
+- NAT : Network Address Translation generally involves "re-writing the source and/or destination addresses of IP packets as they pass through a router or firewall"
+- Seems to be good cumulative guide for nat [link] (https://www.karlrupp.net/en/computer/nat_tutorial)
+
+
+### Docker Networking
+- Docker used above Linux Networking Namespace when creating a network over the host
+- The bridge created by docker on the host is called `docker0`
+- And assigns a private Ip to it which can be seen when you execute below command on the host (Range : 172...)
+
+~~~
+ip link
+ip addr
+~~~
+
+- Docker uses port forwarding in IPtables to make host port talk to container port (NNS)
+
+~~~
+iptables \
+	-t nat \
+	-A Docker \
+	-j DNAT \
+	--dport 8080 \
+	--to-destination 172.17.0.3:80 
+~~~ 
+
+- you can see the IPTABLE rules via command
+
+~~~
+iptables -nvL -t nat
+~~~
+
+
+
+
+
 
 -------------
 #### Additional things to read
