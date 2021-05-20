@@ -617,6 +617,101 @@ ps -aux | grep kubelet
 >> --network-plugin=cni
 ~~~
 
+### Service Networking
+
+- Whenever there is a new pod to be created kubelet listens to API-server and creates a new pod and invokes CNI plugin to set the networking
+- Similarly when ever there is a new service to be created kube-proxy listens to API-server and creates a service (Service is logical entity)
+- 3 kind of thing can be used to created a service
+	- userspace
+	- iptables (default)
+	- ipvs
+	- to check what kind of service is being created you can look at the kube-proxy logs
+- to view iptable rules for a service run below command on host machine
+
+~~~
+	iptables -L -t net | grep db-service
+~~~
+
+- Services has different IP range then the pods. They should not overlap
+- Generall this range is 10.x.x.x but can be configured with kube-api-server option `--service-cluster-ip-range`
+- To view the range `ps -aux | grep kube-api-server`
+- if its running as container `cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep cluster-ip-range`
+- **Strange why is this in api-server and not in kube-proxy or CNI (weave) setting?**
+	- it is in api-server because service is responsibility of kube-proxy and not CNI(weave) that is only responsible for pod networking over the host 
+
+
+### DNS in Kubernetes
+
+Hostname | Namespace | Type | Root | IP address 
+--- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
+web-service  | apps | svc | cluster.local | 10.107.37.188
+10-244-2-5 | apps | pod | cluster.local | 10.244.2.5
+10-244-1-5 | default | pod | cluster.local | 10.244.1.5
+
+- to access a service across namespace you can use one of the following method
+
+~~~
+	curl http://web-service.apps
+	curl http://web-service.apps.svc
+	curl http://web-service.apps.svc.cluster.local
+~~~
+
+#### Core DNS - default DNS since kubernetes 1.12
+- k8s  creates 2 pods of coredns by default
+- coredns config file is located at `/etc/coredns/Corefile` and passed as configmap
+	- it has k8s specific plugin inside 
+	- top level domain name of cluster is specified here `cluster.local` 
+	- has another configuration `pods insecure`
+		- you can tweak this to give pod `-` ip in the dns records
+		- **whats the use case for above?** 
+- for every pod their `/etc/resolve.conf` file is modified by kubelet to add nameserver entry and search entry
+- to check the IP address of coredns to be pointed 
+	- `kubectl get service -n kube-system`
+	- coredns is run as service names `kube-dns` over cluster with type cluster ip
+	- `kubectl get svc -n kube-system`
+
+	
+~~~
+nameserver  10.96.0.10
+search default.svc.cluster.local svc.cluster.local cluster.local
+~~~
+
+- only svc entries are added to that file not for pods
+- to reach pod you have to write the complete domain name (provided setting for dns is done to map pod ip to pod `-` ip)
+
+~~~
+ping 10-244-2-5.default.pod.cluster.local
+~~~
+
+
+### Ingress
+
+- If you have multiple applications which needs to server multiple customer base you will ideally expose them via your cluster to outside world with service type `nodePort` or `Load Balancer`
+- But the challange with both of them is you will either have to expose lot of LoadBalancers to maintain it
+- Also if you want to have secured connection `read ssl` you will have challange to execute it
+- Hence k8s introduced Ingress to solve this. Ingress can be manupliated/modified as native k8s resources 
+- By default k8s doesnt comes with Ingress. you will have to set it yourself.
+- 2 components to Ingress
+	- Ingress controller
+		- Deploy solution like Nginx, HAproxy, countor, go-traffic etc 
+	- Ingress Resources
+		- k8s native way to introduce ingress rules
+		- `kubectl get ingress`
+
+- 2 level of ingress resource rule (to point to appropriate service)
+	- Routing based on domain name (`Rule` in ingress file spec)
+		- `www.mycompany.com`, `www.payments.mycompany.com` `www.api.mycompany.com`  etc
+	- Sub section to above is routing based on path (`Path` in ingress file spec)
+		- `/watch` `/checkout` etc etc    
+- Note Ingress has to be exposed out side can be done as `nodePort` or `LoadBalancer` but this is onetime activity
+- Note `Default backend` service needs to be setup to show good message if routes doesnt match any of the existing rules in Ingress resources
+	- name of this service can be found whenever you describe any ingress resource
+	- `kubectl describe ingress ingress-wear-watch` 
+- 
+
+
+
+
 
 
 -------------
