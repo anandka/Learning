@@ -574,6 +574,7 @@ ip -n red link set veth-blue up
 - Seems to be good cumulative guide for nat [link] (https://www.karlrupp.net/en/computer/nat_tutorial)
 
 
+
 ### Docker Networking
 - Docker used above Linux Networking Namespace when creating a network over the host
 - The bridge created by docker on the host is called `docker0`
@@ -683,6 +684,41 @@ search default.svc.cluster.local svc.cluster.local cluster.local
 ping 10-244-2-5.default.pod.cluster.local
 ~~~
 
+### How entire pod-to-pod (same node), pod-to-pod (different node), pod to service works! 
+
+- After reading all the above pointers its good to go through this [link] (https://sookocheff.com/post/kubernetes/understanding-kubernetes-networking-model/) to understand how it all fits in single picture
+
+- **My mental model of how it works**
+	- There are 3 set of IP ranges
+		- for all the nodes to talk to each other (ex 192.168.1.0/16, 192.168.2.0/16)
+		- for the linux bridge on each host for pods (ex 172.10.x.x )
+			- this is responsible for all NNS to communicate to each other on same host
+			- So **host 1** can have 172.10.1.1, 172.10.1.2 etc (and they can communicate to each other directly because of bridge)
+			- **host 2** can have  172.10.2.11, 172.10.1.12 etc (and they can communicate to each other directly because of bridge) 
+			- Now we insert **CNI** plugin which sits at the host level and tells it if there is a pod ip which host it should redirect it to
+		- For Services (ex 10.x.x.x)
+			-  kube-proxy over here has modified the host IP tables using native linux things like  `(Iptables - netfilter, conntrack) ` and modifies the service IP to pod ip directly
+`iptables is a user-space program providing a table-based system for defining rules for manipulating and transforming packets using the netfilter framework.`
+
+`Kubernetes includes a second option for in-cluster load balancing: IPVS. IPVS (IP Virtual Server) is also built on top of netfilter and implements transport-layer load balancing as part of the Linux kernel`
+
+~~~
+When routing a packet between a Pod and Service, the journey begins in the same way as before. 
+
+The packet first leaves the Pod through the eth0 interface attached to the Pod’s network namespace (1). 
+
+Then it travels through the virtual Ethernet device to the bridge (2). 
+
+The ARP protocol running on the bridge does not know about the Service and so it transfers the packet out through the default route — eth0 (3). 
+
+Here, something different happens. Before being accepted at eth0, the packet is filtered through iptables. 
+
+After receiving the packet, iptables uses the rules installed on the Node by kube-proxy in response to Service or Pod events to rewrite the destination of the packet from the Service IP to a specific Pod IP (4). 
+
+The packet is now destined to reach Pod 4 rather than the Service’s virtual IP. The Linux kernel’s conntrack utility is leveraged by iptables to remember the Pod choice that was made so future traffic is routed to the same Pod (barring any scaling events). 
+
+In essence, iptables has done in-cluster load balancing directly on the Node. Traffic then flows to the Pod using the Pod-to-Pod routing we’ve already examined (5).
+~~~
 
 ### Ingress
 
