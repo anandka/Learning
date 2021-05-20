@@ -602,7 +602,20 @@ iptables -nvL -t nat
 ~~~
 
 
+### CNI 
 
+- Standard to solve networking challanges with containers
+- Gives different standards for plugins which will help runtime to invoke those 
+
+#### Viewing CNI option on running kubelet
+
+~~~
+ps -aux | grep kubelet
+
+>> --cni-bin-dir=/opt/cni/bin
+>> --cni-conf-dir=/etc/cni/net.d
+>> --network-plugin=cni
+~~~
 
 
 
