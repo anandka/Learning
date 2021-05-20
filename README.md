@@ -170,4 +170,7 @@ Learning materials and points
 # Linux! 
 	1. Understanding Route table on linux machine!  -- https://www.youtube.com/watch?v=c4rfWsV4H-I&ab_channel=StevenGordon
 	2. Cheat Sheet for "IP" commands -- https://access.redhat.com/sites/default/files/attachments/rh_ip_command_cheatsheet_1214_jcs_print.pdf
-	3. 
+	3. Understanding IPTABLE [part1] (https://www.youtube.com/watch?v=vbhr4csDeI4&t=383s&ab_channel=XPSTECH)
+    [part2] (https://www.youtube.com/watch?v=H1WPwAjMXRo&ab_channel=XPSTECHXPSTECH)
+    [link3] (https://www.youtube.com/watch?v=9rLVI2UUdoo&ab_channel=MikeMurphyMikeMurphy)
+    MikeMurphy - has other good videos too like setting up router with IPtable that can be helpful to understand if more resources are needed
