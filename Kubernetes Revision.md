@@ -747,6 +747,68 @@ In essence, iptables has done in-cluster load balancing directly on the Node. Tr
 
 
 
+### Application Lifecycle Managment
+
+- Rolling Updates
+- Rollbacks
+- Env Variables for container
+- Config Maps
+- Secrets
+- Scale Applications
+- Multi Container Pods
+- Init Containers 
+- Self Healing Applications
+
+
+#### Rolling Updates
+- If a deployment is being update in rolling update fashion. k8s creates a new replica set and then use one pod at a time to start and stop between the old and new replica set.
+- Last version of replica set is maintained with "0" pods running so in case of rollback you can easily move back
+- Commands to see rollout status and history and rolling back
+
+~~~
+kubectl rollout status deployment/myapp-deployment
+kubectl rollout history deployment/myapp-deployment
+kubectl rollout undo deployment/myapp-deployment
+~~~
+
+- `kubectl describe deployment/myapp-deployment` command will give details of deployment `StratergyType` "Recreate of RollingUpdate(Default)" and `Events` section shows how it was into effect
+
+
+#### Startup arguments for Docker containers and Kubernetes
+
+##### Docker 
+
+- CMD
+- Entrypoint
+
+- `CMD` and `Entrypoint` both takes input as shell command or JSON format.
+	- JSON format should be preferred
+	- For JSON first argument is always a executable
+- `CMD` is default command. but if you have arguments supplied while running the image `CMD` gets overridden completely 
+- If you have Entrypoint then any arguments which is supplied to container while running are appened to entrypoint
+- If no arguments are provided then entrypoint might fail depending on what you are running
+- You can have a combination of `CMD` and `Entrypoint` for things to work if no parameters are provided while running `CMD ` provides the default ones!
+- You can also override entrypoint by specifing `--entrypoint` argument while running the image
+
+##### Kubernetes
+
+- As you have seen the CMD and Entrypoint in above section k8s config file has `args` and `command` arguments which match those
+- `CMD` --> `args`
+- `Entrypoint` --> `command`
+
+~~~
+apiVersion : v1
+kind : Pod
+metadata:
+	name : ubuntu-sleeper-pod
+spec:
+	containers:
+		- name: ubuntu-sleeper
+		  image: ubuntu-sleeper 
+		  command: ["sleep2.0"]
+		  args: ["10"]
+~~~
+
 
 
 
