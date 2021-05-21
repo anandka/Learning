@@ -174,3 +174,6 @@ Learning materials and points
     [part2] (https://www.youtube.com/watch?v=H1WPwAjMXRo&ab_channel=XPSTECHXPSTECH)
     [link3] (https://www.youtube.com/watch?v=9rLVI2UUdoo&ab_channel=MikeMurphyMikeMurphy)
     MikeMurphy - has other good videos too like setting up router with IPtable that can be helpful to understand if more resources are needed
+
+# Demo hacks! 
+	1. Demo magic - Helps to automate repetable scripts for demo wherein you can just keep pressing enter and it will pretend you are typing [link] (https://github.com/paxtonhare/demo-magic/blob/master/samples/demo-template.sh)
