@@ -809,7 +809,14 @@ spec:
 		  args: ["10"]
 ~~~
 
+#### Config Map
 
+- Way to send env variables to pods
+
+- To invoke `Config Maps` or `secrets` in pods there are 3 options
+	- `envFrom` - apps in all the values to pod
+	- `env` - You can pick and chose which variables you want and can change their Key
+	- `volumes` - each attribute will be mounted as file with its value(key) inside  
 
 
 -------------
@@ -821,4 +828,6 @@ spec:
 	- Why Replica Sets were introduced over Replication Controller?
 	  - Exsting pods with same lables can have different images
 	  - isnt that an issue?
-	- Best practies for labeling! 
+	- Best practies for labeling!
+	- Encrypting data at rest (etc encryption)
+	- How to give passwords in secret manner (Hashicorp vault?) read and understand more about it. k8s secrets arent safe
