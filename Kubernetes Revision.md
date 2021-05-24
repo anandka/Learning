@@ -819,6 +819,21 @@ spec:
 	- `volumes` - each attribute will be mounted as file with its value(key) inside  
 
 
+
+### Cluster Upgrade
+
+- k8s components versioning
+- No other component can be higher then the API version (consider X) (except kubectl)
+- Controller manager and Kube Scheduler can be of versions (X, X-1)
+- kubelet and kubeproxy (Worker nodes) can be of version (X,X-1, X-2)
+- kubectl can be of version (X+1 , X, X-1)
+
+- Whever you are updating update one version at a time
+- Suppose you are on version v1.10 and v1.13 has been released
+- you need to upgrade to 1.10 to 1.11 then 1.11 to 1.12 and then to 1.13
+
+
+
 -------------
 #### Additional things to read
 	- etcd
@@ -831,3 +846,56 @@ spec:
 	- Best practies for labeling!
 	- Encrypting data at rest (etc encryption)
 	- How to give passwords in secret manner (Hashicorp vault?) read and understand more about it. k8s secrets arent safe
+
+	
+----------------
+### Helpful commands 
+
+- To find k8s version
+
+~~~
+kubectl version --short
+>>> will give Client version and server version
+>>> Server version is the version of k8s
+~~~
+
+- To get help for k8s commands similar to `man` in linux
+
+~~~
+kubectl explain <<resource_type>> --recursive
+
+>> kubectl explain pod --recursive
+
+>> kubectl explain pod --recursive | grep initContainers -A8
+>> this is search for initContainers and display 8 lines below it.
+>> Very useful when you want to see how to structure the defination file on fly 
+~~~
+
+- To get all the resoruces deployed
+
+~~~
+kubectl get all 
+
+>>> kubectl get all -n dev
+
+>>> Displays all the different resources deployed in the Namespace
+>>> (reverify) : I think this doest shows ingress, configMap, and secrets need to fire individual commands for them 
+~~~
+
+- To get config file from existing resource
+
+~~~
+kubectl get pod nginx -o yaml >> nginx_pod.yaml 
+~~~
+
+- To create a config file on fly
+
+~~~
+kubectl run nginx --image=nginx --dry-run=client -o yaml >> nginx_pod.yaml 
+~~~
+
+- Can change the default NS to point to something else by below command
+
+~~~
+kubectl config set-context $(kubectl config current-context) --namespace=<namespace>
+~~~
