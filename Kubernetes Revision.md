@@ -2,7 +2,8 @@
 ~~~ 
 Please note this is not exhaustive list.
 But just pointers that I want to remember so I might have used shortcuts or just jotted down points which I feel are important.
-For any references please cross verify things on Google )
+
+For any references please search keywords in kubernetes documentation or cross verify things on Google :)
 ~~~
 
 Udemy Course - Mumshad Mannambeth
@@ -13,6 +14,8 @@ Udemy Course - Mumshad Mannambeth
 2. CKAD - Application Developer
 3. CKS - Security
 ~~~
+
+##CKA
 
 ### Kubernetes Components 
 
