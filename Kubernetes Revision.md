@@ -827,11 +827,152 @@ spec:
 - Controller manager and Kube Scheduler can be of versions (X, X-1)
 - kubelet and kubeproxy (Worker nodes) can be of version (X,X-1, X-2)
 - kubectl can be of version (X+1 , X, X-1)
-
 - Whever you are updating update one version at a time
-- Suppose you are on version v1.10 and v1.13 has been released
-- you need to upgrade to 1.10 to 1.11 then 1.11 to 1.12 and then to 1.13
+	- Suppose you are on version v1.10 and v1.13 has been released
+	- You need to upgrade to 1.10 to 1.11 then 1.11 to 1.12 and then to 1.13
 
+
+### Security
+
+- Authentication
+- Authorization
+- TLS
+- Network Policies (By default all pods can talk to each other. To prevent that Network Policies can be set up)
+
+#### Authentication
+- Authentication  had 4 mechanisms (first 2 are depricated after k8s 1.19 )
+  - Static password file  		(Passed as parameter to API server)
+  - Static Token File			(Passed as parameter to API server)
+  - Certificates
+  - Service Accounts (Not in CKA)
+
+##### Certificates
+- Trust , Encrypt data (etc, etc)
+- ssh-keygen 	--> 	for ssh keys
+- open ssl 	--> 	for certificates
+
+- Easy way to rememeber which is public and private key
+  - Public Key -- `*.crt    *.pem`
+  - Private Key -- `*.key    *-key.pem`
+- Private keys has `key` in their name (please note this isnt compulsary but just a easy way if this naming convention is followed) 
+- There are 2 types of certificates
+  - **Server Certificate** 
+  - **Client Certificate** 
+- Server Certificates - `API etcd kubelet`
+- Client Certificates - `Admin User scheduler controller kube-proxy and optional for (API and kubelet)`
+- Server Certificates are to prove that they are they server. Client certificate is to prove they are right clients and authenticated to talk to right server.
+- Health Check for certificates can be done there is some way please google
+- Certificates are configured while running each component. things like server crts, client crts, trusted crts etc will be provided as parameters when you do this
+- `/etc/kubernets/manifests/*` or `/etc/systemd/system/*` are the files to check
+
+- to look into a crt file run the below command
+
+~~~
+openssl x509 -text -noout -in certificate.crt 
+~~~ 
+
+- Crt file has information like
+  - Validity (Not Before and Not After)
+  - Issuer (CA)
+  - Name
+  - Alternative Names (DNS, IPs)
+ 
+- Sometimes when kubernets components are down beause of certificate error then you need to check `docker logs` for those to identify the issue
+
+- There is certificate API run by k8s controlled by `kube-controller`
+- Config file format to create `CertificateSigningRequest`
+- kubectl commands to view, approve, deny, delete those
+
+~~~
+kubectl get csr
+kubectl describe csr <name>
+kubectl certificate approve <name>
+kubectl certificate deny <name>
+kubectl certificate delete <name>
+~~~
+
+
+#### Authorization
+
+##### API Groups
+
+~~~
+ 					Api  |   apis
+ 					     |
+ 					 API Groups		(/apps , /networking.k8s.io)
+ 					     |
+ 					 Resources		(/deployments,  /replicasets  (from/apps))
+ 					 	  |
+ 					 	Verbs
+ 	(create, delete, deletecollection, get, list, patch, update, watch)
+~~~
+
+#### Authorization Mechanisms in K8s
+
+1. Node - For other nodes to node communication 
+2. ABAC - Attribute based
+3. RBAC - Role Bases
+4. WebHook - Used by external tools like Open Policy Agent (OPA)
+5. Always Allow
+6. Always Deny
+
+- To specify which authorization mode should be used you can input it in kube-api parameter `--authorization-mode= Node,RBAC,webhook`
+- there can be multiple modes in comma seperated format. k8s will evaluate them sequencially and if the role is admitted it will break the chain and allow the operation else will continue the chain
+
+##### RBAC
+
+###### Roles and Role Binding
+
+- Roles are namespaced
+- If no namespaced is defined `default` namespace is used
+- Kind `Role` Binding `RoleBinding `
+- To check all the resoruces which falls under role run below command
+`kubectl api-resources --namespaced=true`
+- O/P - You will get apiGroups and Resources from here to be put into Role or ClusterRole Files
+
+~~~
+kubectl get roles
+kubectl get rolebindings
+kubectl describe role <Role Name>
+
+## check access for yourself
+
+kubectl auth can-i delete nodes
+
+## check access for others
+
+kubectl  auth can-i get pods --as dev-user -n default
+~~~
+
+###### Cluster Role and ClusterRoleBinding
+- There are resources which are cluser wide hence Cluster role over Role
+- Cluster Scoped resource example
+	- Node
+	- PV
+	- CSR
+	- Namespaces etc 
+- Kind `ClusterRole` Binding `ClusterRoleBinding`
+- To check all the resoruces which falls under ClusterRole run below command
+`kubectl api-resources --namespaced=false`
+- O/P - You will get apiGroups and Resources from here to be put into Role or ClusterRole Files
+
+#### Image Security
+- To pull image from a secure registry
+	- Create a secret
+	`kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+`
+	- Under spec for pod `imagePullSecrets` specify the secret name
+
+
+
+
+#### Security Context and PSP
+- Why security context and pod security policy (PSP depricated 1.21 and will be removed in 1.25 in favour of Pod Security Standards -- PSS) 
+	- [link] (https://medium.com/nerd-for-tech/getting-started-with-kubernetes-pod-security-context-and-policy-26619529a64b) 
+- Security context is at pod level. Security context can also be at container level if this is set then this prevails over pod level
+- PSP is cluster wide. It can control whether a pod can run on the cluster or not depending on the policies set up for the pod
+- Security context
+	- [link] (https://snyk.io/blog/10-kubernetes-security-context-settings-you-should-understand/) 
 
 
 -------------
@@ -846,8 +987,10 @@ spec:
 	- Best practies for labeling!
 	- Encrypting data at rest (etc encryption)
 	- How to give passwords in secret manner (Hashicorp vault?) read and understand more about it. k8s secrets arent safe
+	- When node goes down how long does k8s waits for it?
+	  - Default is 5 mins
+	  - kube-controller-manager --pod-evection-timeout=5m0s 
 
-	
 ----------------
 ### Helpful commands 
 
@@ -855,20 +998,21 @@ spec:
 
 ~~~
 kubectl version --short
->>> will give Client version and server version
->>> Server version is the version of k8s
+
+#>>> will give Client version and server version
+#>>> Server version is the version of k8s
 ~~~
 
 - To get help for k8s commands similar to `man` in linux
 
 ~~~
-kubectl explain <<resource_type>> --recursive
+# kubectl explain <<resource_type>> --recursive
 
->> kubectl explain pod --recursive
+kubectl explain pod --recursive
 
->> kubectl explain pod --recursive | grep initContainers -A8
->> this is search for initContainers and display 8 lines below it.
->> Very useful when you want to see how to structure the defination file on fly 
+#>>> kubectl explain pod --recursive | grep initContainers -A8
+#>>> this is search for initContainers and display 8 lines below it.
+#>>> Very useful when you want to see how to structure the defination file on fly 
 ~~~
 
 - To get all the resoruces deployed
@@ -876,10 +1020,10 @@ kubectl explain <<resource_type>> --recursive
 ~~~
 kubectl get all 
 
->>> kubectl get all -n dev
+#>>> kubectl get all -n dev
 
->>> Displays all the different resources deployed in the Namespace
->>> (reverify) : I think this doest shows ingress, configMap, and secrets need to fire individual commands for them 
+#>>> Displays all the different resources deployed in the Namespace
+#>>> (reverify) : I think this doest shows ingress, configMap, and secrets need to fire individual commands for them 
 ~~~
 
 - To get config file from existing resource
@@ -898,4 +1042,26 @@ kubectl run nginx --image=nginx --dry-run=client -o yaml >> nginx_pod.yaml
 
 ~~~
 kubectl config set-context $(kubectl config current-context) --namespace=<namespace>
+~~~
+
+- Check Access to kubernetes resoruces
+
+~~~
+## check access for yourself
+
+kubectl auth can-i delete nodes
+
+## check access for others
+
+kubectl  auth can-i get pods --as dev-user -n default
+~~~
+
+- Check API Resources for Roles and Cluster Roles
+
+~~~
+kubectl api-resources --namespaced=true  # Role
+kubectl api-resources --namespaced=false # ClusterRole
+
+### O/P
+You will get apiGroups and Resources from here to be put into Role or ClusterRole Files
 ~~~
