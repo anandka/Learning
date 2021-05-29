@@ -964,8 +964,6 @@ kubectl  auth can-i get pods --as dev-user -n default
 	- Under spec for pod `imagePullSecrets` specify the secret name
 
 
-
-
 #### Security Context and PSP
 - Why security context and pod security policy (PSP depricated 1.21 and will be removed in 1.25 in favour of Pod Security Standards -- PSS) 
 	- [link] (https://medium.com/nerd-for-tech/getting-started-with-kubernetes-pod-security-context-and-policy-26619529a64b) 
@@ -974,6 +972,83 @@ kubectl  auth can-i get pods --as dev-user -n default
 - Security context
 	- [link] (https://snyk.io/blog/10-kubernetes-security-context-settings-you-should-understand/) 
 
+#### Network Policies
+- By default all pods in Namespace can communicate with all pods across the Namespace
+- **NOTE: Not all Network Solutions (CNI Plugins) support Netowrk Policies**
+	- Supported
+		- Kube-router
+		- calico
+		- Romana
+		- Weave-net
+	- Unsupported
+		- As of now flannel doesnt supports Network Policies
+	- Please check latest documentation when you are selecting it
+	- Even if netowrk Sol. doesnt supports network policy you can still create it as it is k8s resource but it wont be enforced
+- If you want to control this you can setup Network Policy
+- Network Policy works at Namespace level
+- One can think of Network policy as Security Group of any cloud
+- It has Ingress and Egress rules which you can apply
+- `Pod Selectors` is used to select which pods the network policy is applied to
+- Example of Network Policy
+
+~~~
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: test-network-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+        except:
+        - 172.17.1.0/24
+    - namespaceSelector:
+        matchLabels:
+          project: myproject
+    - podSelector:
+        matchLabels:
+          role: frontend
+    ports:
+    - protocol: TCP
+      port: 6379
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/24
+    ports:
+    - protocol: TCP
+      port: 5978
+~~~
+
+- The important sections to look for
+	- `name` and `namespace` in metadata
+- `Spec`
+	- `podSelector ` selects the pods to which the policy will apply
+	- `policyTypes `  which kind of rules will this policy have
+	- `ingress`
+		-  `from`
+			- `ipBlock`
+				- If you have IP address outside the cluster which you want to communicate with
+				- Example backup servers, external static apis etc
+			- `podSelector `
+				- Appropriate lables should be selected
+			- `namespaceSelector `
+				- By default if only pod selector is specified then it will cater to all the pods on the cluster (across all namespaces) having same lables but that wont be desrired
+				- Hence you can tie down this behaviour with   namespaceSelector
+				- if you only specify `namespaceSelector ` then all the pods in the same NS will be considered
+				- Make sure Namespace has been labeled before using this
+	- `egress`
+		- Same as Ingress
+
+- **Note** just as Json the structuring of `podSelector` and `namespaceSelector ` matters for **AND** and **OR** Rules
 
 -------------
 #### Additional things to read
