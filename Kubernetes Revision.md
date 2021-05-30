@@ -15,7 +15,9 @@ Udemy Course - Mumshad Mannambeth
 3. CKS - Security
 ~~~
 
+
 ##CKA
+
 
 ### Kubernetes Components 
 
@@ -28,7 +30,7 @@ Udemy Course - Mumshad Mannambeth
   - All the commands are directed to API server which then takes necessary action
   - only point of interation with etcd DB
 - kube-scheduler 
-  - Responsible to indetify nodes on which pods should be scheduled based 
+  - Responsible to identify nodes on which pods should be scheduled based on
       - policy
       - constraints
       - (eg - resource avaibility , taints, tolerance, affinity etc)
@@ -46,7 +48,7 @@ Udemy Course - Mumshad Mannambeth
  - kube-proxy
    - Responsible for all Networking
    - Plays with IPTables (For Service)
-   - Service is a virtual Component (No Pods run for it just a logical entity)
+   - Service is a virtual Component (No Pods run to make a service. Its just a logical entity)
    
 ---------------------
 
@@ -104,17 +106,16 @@ All the information on above tag depends on what kind of resource you are going 
  - k8s previously used to have Replication Controllers 
  - As name suggests used to keep eyes on the pods and restart if any pods are killed or dies. To bring pods to desired state
  - Replica Sets should be used over Replication Controller
- - Both are similar in primary functionality just that Replicat sets have additional field in configuration called `selector`
+ - Both are similar in primary functionality just that Replica sets have additional field in configuration called `selector`
  - `selector ` is used to identify pods which will be run or already running by thier lables and then Replica sets starts to monitor them
  - catch here is pods need not be created by Replica set to be monitored but can be existing pods with the tags that `selector is looking for`
  - Replica set adds and checks for `ownerReferences`
    - `metadata.ownerReference`
    - Only if object doesnt have a owner i.e its orphaned then it takes it on the watch list.
    - `that tag` is also tied to garbage collection mechanism (TBD)
- - IDK why this was introduced as it can complicate things if existing pods are running different images! -- NEED TO READ MORE! 
- -
+ - IDK why this was introduced as it can complicate things if existing pods are running different images! -- NEED TO READ MORE!
 
-#### Namespaces 
+#### Namespaces (Also referred as NS in this document)
  - to keep things inside same bucket! 
  - Namespaces share the networking and Storage
  - quota requirment can be implemented on top of Namespace
@@ -192,7 +193,7 @@ expose
 etc...
 ~~~
 
-Delarative is something that you just declare the state and let the engine decide how it wants to reach there. Or what kind of statements it wasnts to execute
+Delarative is something that you just declare the state and let the engine decide how it wants to reach there. Or what kind of statements it wants to execute
 
 EG. - If you use app like OLA/Uber/Grab  you just need to enter the start and destination rest all is controlled by the app.
 
@@ -221,7 +222,7 @@ For  Declarative style it looks at 3 copies before executing any command
 ## Scheduling (Taint/Tolerations, Node Selector and Affinity)
 For considering scheduling one needs to think of taints & tolerance, node selector and node affinity/anti-affinity in one box.
 
-Because all of these compliment each other and you need to understand the behaviour well to understan how it works.
+Because all of these compliment each other and you need to understand the behaviour well to understand how it works.
 
 - Taint (This is only for/on nodes)
   - To accept pods with certain tolerance.
@@ -245,7 +246,7 @@ Because all of these compliment each other and you need to understand the behavi
 - Taint Effect determines what happes to the pods which do not tolerate the taints.
   - Different type of taint effects are as below
       - **NoSchedule** : Pods are not scheduled if no tolerance
-      - **PreferNodSchedule** : Pods are prefered to not be scheduled but no gurantee
+      - **PreferNoSchedule** : Pods are prefered to not be scheduled but no gurantee
       - **NoExecute** : New pods wont be scheduled and existing pods will be deleted
     	  - NoExecute has additional field called `tolerationSeconds` 
     	  - If above field is set then k8s waits for that time before any pods are deleted 
@@ -253,13 +254,13 @@ Because all of these compliment each other and you need to understand the behavi
 
 - K8s also uses taints as internal mechanism for kubernetes to work
   - Example master nodes are tainted to run only master components 
-  - Whenever a node is unhealthy/unreachable or having any other issues/pressure like cpu,memory,io,pid . K8s internally sets taits to reflect the node behaviour
-  - Based on this taints scheduler determines if pods are to be sent to these nodes or not! So in short unhealty status of node is reflected to scheduler via Taints! 
+  - Whenever a node is unhealthy/unreachable or having any other issues/pressure like cpu,memory,io,pid . K8s internally sets taints to reflect the node behaviour
+  - Based on this taints scheduler determines if pods are to be sent to these nodes or not! So in short unhealthy status of node is reflected to scheduler via Taints!
 
 ~~~
  kubectl describe node kubemaster | grep taint
  
- o/p should be something like>> node-role.kubernetes.io/master:NoSchedule
+ # o/p should be something like>> node-role.kubernetes.io/master:NoSchedule
 ~~~
 
 - Adding and removing taints
@@ -323,8 +324,10 @@ https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)**
 
 #### Node Affinity  (TBD Pod Affinity/AntiAffinity)
 
-1. The affinity/anti-affinity language is more expressive. The language offers more matching rules besides exact matches created with a logical AND operation;
-2. You can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler can't satisfy it, the pod will still be scheduled;
+1. The affinity/anti-affinity language is more expressive. The language offers more matching rules besides exact matches created with a logical AND operation
+
+2. You can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler can't satisfy it, the pod will still be scheduled
+
 3. You can constrain against labels on other pods running on the node (or other topological domain), rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located (TBD)
 
 ~~~
@@ -353,7 +356,7 @@ spec:
 	- In
 	- NotIn
 	- Exists
-	- DoesNotExisits  
+	- DoesNotExist
 	- Gt
 	- Lt
 
@@ -374,7 +377,7 @@ spec:
 - Network Interface
 	- Physical or logical entity on VM which connects it to network
 	- Example : eth0, docker0 etc
-	- one Network interface can have 'N'no of IP's and that too of different subnets
+	- One Network interface can have 'N' no of IP's and that too of different subnets
 - Switch
 	- Used to connect devices in same Network
 - Router
@@ -410,8 +413,8 @@ spec:
 
 ~~~
   cat /proc/sys/net/ipv4/ip_forward
-  >> 0  -- No Forward
-  >> 1  -- Forward
+  # >> 0  -- No Forward
+  # >> 1  -- Forward
 
 ~~~
 
@@ -468,7 +471,7 @@ hosts:    files dns myhostname
 
 - Host information first comes from /etc/hosts (files), then a DNS server (dns), and if neither of those work, at least a fallback of "myhostname" so that the local machine has some name.
 
-- one can host their own DNS server - example using Core DNS
+- One can host their own DNS server - example using Core DNS
 
 ### Network NameSpaces! (Referred to as NNS in section below)
 
@@ -489,13 +492,13 @@ ip netns add blue
 ~~~
 
 - Network NS dont have any network interfaces provisioned by default except for the loopback 
-- to check for Network interface run `ip link` on host so you will see eth0, docker0 etc etc
-- but if you run the same inside the NNS you will only see `lo`
-- you can exec in NNS similar as we do in docker by below command where `ip netns exec` means exec `red` is the name of NNS and `ip link ` is the command that we want to run inside it
+- To check for Network interface run `ip link` on host so you will see eth0, docker0 etc etc
+- But if you run the same inside the NNS you will only see `lo`
+- You can exec in NNS similar as we do in docker by below command where `ip netns exec` means exec `red` is the name of NNS and `ip link ` is the command that we want to run inside it
 
 ~~~
 ip netns exec red ip link
->> lo
+# >> lo
 ~~~
 
 - To talk between the NNS you need `Virtual cable`
@@ -506,7 +509,7 @@ ip link add veth-red type veth peer name veth-blue
 ~~~~
 
 - The above command says `create a cable of type veth` with `network interface veth-red` connected to `network interface veth-bule`
-- now you need to connect respectvie network interface to NNS
+- Now you need to connect respectvie network interface to NNS
 
 ~~~
 ip link set veth-red netns red
@@ -528,7 +531,7 @@ ip -n red link set veth-red up
 ip -n red link set veth-blue up
 ~~~
 
-- try to ping from red NS to blue NS it should work
+- Try to ping from red NS to blue NS it should work
 - `ip -n red ping 192.168.15.2`  should work
 
 **But notw the challange is you can keep on creating these virtual cables and adding it to different NNS because there are be 100's of them on same host hence enters Virtual BRIDGE**
@@ -562,7 +565,7 @@ ip link set veth-blue netns blue
 ip link set veth-blue-br netns v-net-0
 ~~~
 
-- assign the ip address to the veth-red and blue and UP them to test the ping
+- Assign the ip address to the veth-red and blue and UP them to test the ping
 
 ~~~
 ip -n red addr add 192.168.15.1 dev veth-red
@@ -616,9 +619,9 @@ iptables -nvL -t nat
 ~~~
 ps -aux | grep kubelet
 
->> --cni-bin-dir=/opt/cni/bin
->> --cni-conf-dir=/etc/cni/net.d
->> --network-plugin=cni
+# >> --cni-bin-dir=/opt/cni/bin
+# >> --cni-conf-dir=/etc/cni/net.d
+# >> --network-plugin=cni
 ~~~
 
 ### Service Networking
@@ -639,7 +642,7 @@ ps -aux | grep kubelet
 - Services has different IP range then the pods. They should not overlap
 - Generall this range is 10.x.x.x but can be configured with kube-api-server option `--service-cluster-ip-range`
 - To view the range `ps -aux | grep kube-api-server`
-- if its running as container `cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep cluster-ip-range`
+- If its running as container `cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep cluster-ip-range`
 - **Strange why is this in api-server and not in kube-proxy or CNI (weave) setting?**
 	- it is in api-server because service is responsibility of kube-proxy and not CNI(weave) that is only responsible for pod networking over the host 
 
@@ -668,8 +671,8 @@ web-service  | apps | svc | cluster.local | 10.107.37.188
 	- has another configuration `pods insecure`
 		- you can tweak this to give pod `-` ip in the dns records
 		- **whats the use case for above?** 
-- for every pod their `/etc/resolve.conf` file is modified by kubelet to add nameserver entry and search entry
-- to check the IP address of coredns to be pointed 
+- For every pod their `/etc/resolve.conf` file is modified by kubelet to add nameserver entry and search entry
+- To check the IP address of coredns to be pointed
 	- `kubectl get service -n kube-system`
 	- coredns is run as service names `kube-dns` over cluster with type cluster ip
 	- `kubectl get svc -n kube-system`
@@ -680,8 +683,8 @@ nameserver  10.96.0.10
 search default.svc.cluster.local svc.cluster.local cluster.local
 ~~~
 
-- only svc entries are added to that file not for pods
-- to reach pod you have to write the complete domain name (provided setting for dns is done to map pod ip to pod `-` ip)
+- Only svc entries are added to that file not for pods
+- To reach pod you have to write the complete domain name (provided setting for dns is done to map pod ip to pod `-` ip)
 
 ~~~
 ping 10-244-2-5.default.pod.cluster.local
@@ -693,8 +696,8 @@ ping 10-244-2-5.default.pod.cluster.local
 
 - **My mental model of how it works**
 	- There are 3 set of IP ranges
-		- for all the nodes to talk to each other (ex 192.168.1.0/16, 192.168.2.0/16)
-		- for the linux bridge on each host for pods (ex 172.10.x.x )
+		- For all the nodes to talk to each other (ex 192.168.1.0/16, 192.168.2.0/16)
+		- For the linux bridge on each host for pods (ex 172.10.x.x )
 			- this is responsible for all NNS to communicate to each other on same host
 			- So **host 1** can have 172.10.1.1, 172.10.1.2 etc (and they can communicate to each other directly because of bridge)
 			- **host 2** can have  172.10.2.11, 172.10.1.12 etc (and they can communicate to each other directly because of bridge) 
@@ -746,7 +749,6 @@ In essence, iptables has done in-cluster load balancing directly on the Node. Tr
 - Note `Default backend` service needs to be setup to show good message if routes doesnt match any of the existing rules in Ingress resources
 	- name of this service can be found whenever you describe any ingress resource
 	- `kubectl describe ingress ingress-wear-watch` 
-- 
 
 
 
@@ -843,7 +845,7 @@ spec:
 - Network Policies (By default all pods can talk to each other. To prevent that Network Policies can be set up)
 
 #### Authentication
-- Authentication  had 4 mechanisms (first 2 are depricated after k8s 1.19 )
+- Authentication  had 4 mechanisms (First 2 are depricated after k8s 1.19 )
   - Static password file  		(Passed as parameter to API server)
   - Static Token File			(Passed as parameter to API server)
   - Certificates
@@ -868,7 +870,7 @@ spec:
 - Certificates are configured while running each component. things like server crts, client crts, trusted crts etc will be provided as parameters when you do this
 - `/etc/kubernets/manifests/*` or `/etc/systemd/system/*` are the files to check
 
-- to look into a crt file run the below command
+- To look into a crt file run the below command
 
 ~~~
 openssl x509 -text -noout -in certificate.crt 
@@ -1046,7 +1048,7 @@ spec:
 			- `namespaceSelector `
 				- By default if only pod selector is specified then it will cater to all the pods on the cluster (across all namespaces) having same lables but that wont be desrired
 				- Hence you can tie down this behaviour with   namespaceSelector
-				- if you only specify `namespaceSelector ` then all the pods in the same NS will be considered
+				- If you only specify `namespaceSelector ` then all the pods in the same NS will be considered
 				- Make sure Namespace has been labeled before using this
 	- `egress`
 		- Same as Ingress
