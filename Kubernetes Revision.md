@@ -144,10 +144,12 @@ All the information on above tag depends on what kind of resource you are going 
   
 #### Services
 ~~~
-3 type of services
+Types of services
 1. Node Port
 2. Cluster IP
 3. LoadBalancer
+4. Headless (Used with Stateful Sets not in CKA scope)
+5. External (Used to point out to external Address not in CKA scope)
 ~~~ 
 
 ##### Node port
