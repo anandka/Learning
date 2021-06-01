@@ -1055,6 +1055,84 @@ spec:
 
 - **Note** just as Json the structuring of `podSelector` and `namespaceSelector ` matters for **AND** and **OR** Rules
 
+
+
+## Storage in Kubernetes
+
+- Persistent Volume
+- Persistent Volume Claims
+- Storage Class (Not in scope of CKA)
+- Stateful Sets (Not in scope of CKA)
+
+**Note** For the scope of CKA only basic creation and attacting is in scope
+
+### Docker Storage
+- Storage Driver Plugin
+- Volume Driver Plugin
+
+#### Storage Driver
+
+- Docker creates `/var/lib/docker` directory and stores its data inside that directory among various folders such as
+	- containters
+	- images
+	- volumes
+	- aufs
+
+- Docker uses layred architecture for images so when you create a container it refers to the image layers and creates a container. These layers are in `Read Only` mode
+- However if you exec inside a container and modify any files then these files are `Copy on Write` i.e a copy in `Read Write mode` is created and that is used which will be deleted when container is deleted
+- Such kind of `Copy on Write` and layred architecture is executed by Stroage Driver
+- Some of the storage drivers
+	- aufs
+	- zfs
+	- btrfs
+	- Device Mapper
+	- Overlay
+	- Overlay2
+- Selection of Strage driver depends on the underlaying Operating System. Docker will automitically choose it.
+
+#### Volume Driver
+- Volume drivers help to manage the volume with docker
+- Default is local which will create volume inside folder `/var/lib/docker/volumes`
+- Other storage drivers
+  - Azure File Storage, Convey, Flocker, NetApp, Portworx, GlusterFS, etc etc
+  - RexRay -- can help to provision on Cloud like EBS in aws or Azure File Storage in Azure etc etc
+
+#### Container Storage Interface (CSI)
+- Similar to CNI (Network interface ) CSI is for storage
+- Standarize way for container runtime and orchestration to work with each other so they can be mixed and matched
+
+
+#### Persistent Volume
+- Similar to docker volume can be mounted on host system in k8s. But this will mean that its attached to one node and not shared across nodes
+- Also every team will create its own volume and manage which can become proble in bigger clusters where various teams work
+- Hence persistent Volume usually think of this as Administrator creates a huge chunk of Volume and then team can chucks from it using Peristent Volume Claims
+- Hence the storage option is centrally managed
+- Persistent volume needs to be first created manually.
+- Has different types of access modes
+	- ReadOnlyMany
+	- ReadWriteOnce
+	- ReadWriteMany
+- **Note** : The access mode also depends where you are provisioning the volume. For example like elastic Block Storage (EBS) doesnt supports mount on multiple Ec2 instance so you can only use `ReadWriteOnce`
+- To check which `Volume Plugins` supports what scroll down in this [link] (https://kubernetes.io/docs/concepts/storage/_print/#access-modes)
+
+#### Persistent Volume Claims (PVC)
+- PVC and Persistet Volume (PV) are not directly binded to each other
+- When PVC is created k8s looks for appropriate match in PV which it can allocate based on
+	- Sufficient Capacity
+	- Access Mode
+	- Volume Mode
+	- Storage Class
+- So there can be cases when multiple PV might match to PVC then a random PV will be selected
+- To avoid this one can use `labels and selectors`
+- One PVC can be binded to only one PV
+- If no PV is available then PVC will be in `pending state`
+- `persistentVolumeReclaimPolicy`
+	- What happens to the volume once PVC is deleted
+	- `Retain` (Default) (Volume wont be available to anyone else unless administrator takes some action)
+	- `Delete` (Volume Will be deleted)
+	- `Recycle` (Not everyone supports this) (`rm -rf * ` will be performed and volume is available for others to use)
+	- [Additional Details] (https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming)
+
 -------------
 #### Additional things to read
 	- etcd
@@ -1070,6 +1148,7 @@ spec:
 	- When node goes down how long does k8s waits for it?
 	  - Default is 5 mins
 	  - kube-controller-manager --pod-evection-timeout=5m0s 
+	- PV and PVC if one creates a PV of 100mb and PVC of 50 then the PVC gets 100. will it be same if case of GB? how does that work?
 
 ----------------
 ### Helpful commands 
