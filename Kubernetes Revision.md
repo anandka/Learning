@@ -396,7 +396,7 @@ spec:
 - Applications can be scheduled via default schedular and few apps can be configured to schedule pointing to custom schedular
 - in pod `spec` -- `schedulerName` property is present to point to specific schedular
 - To check which schedular the pod was used to run `kubectl get events` or MAYBE check the events of the pod? need to check the later part
-- 
+- If there is scheduler available you can use `nodeName` property on pod spec and make the pods running
 
 
 ## Networking for Kubernetes
