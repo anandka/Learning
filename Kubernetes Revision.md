@@ -235,7 +235,7 @@ Because all of these compliment each other and you need to understand the behavi
   - Lables are placed on nodes 
 
 
-#### Taint / Toleration 
+#### Taint / Toleration
 
 ##### Taint 
 - Tait is for node!  -- Tolerance is for Pod
@@ -370,8 +370,33 @@ spec:
 - What happens if there are no labels or lables are changed at certain later stage ?
   - Type of node Affinity determines this behaviour 
 
+#### Daemon Sets
+- kind `DaemonSet`
+- `kubectl get daemonsets`
+- Before k8s 1.12 k8s used to use `nodeName` in spec field for Daemon Set to work
+- Post 1.12 it uses `nodeAffinity` rules internally to achieve Daemon Set behaviour
 
+#### Static Pods
+- pods can be run on node without interacting with k8s api-server. if you are setting up k8s using pods how is it started and managed if no k8s exists? or some issue is there and cluster is not up. (Read api-server is down)
+- Static pods can run on nodes directly via kubelet they arent part of k8s directly but they are mirrored to k8s-api so you can see them when you run commands
+- These pods arent governed by api-server but by individual `kubelet` on the respect nodes
+- Static pods are created from k8s pod spec which will reside on the node
+- There are 2 approach to provide the location of these files to `kubelet service`
+	- path to the folder is provided by parameter `--pod-manifest-path` which running the kubelet
+	- Usually the path defaults to `/etc/kubernetes/manifests`
+	- Another approach is to set `--config=kubeconfig.yaml`
+	- `kubeconfig.yaml` --> `staticPodPath: /etc/kubernetes/manifests`
+- `ps -aux | grep kubelet | grep config`
+- If a static pod fails kubelet will automatically restart it
+- Static pod will normally have `node name` suffix attached at the end - Easy trick to identify static pods
 
+#### Multiple Schedulers
+- K8s is very flexible / extinsible you can have your own scheduler based on any of your custom logic
+- multiple schedulers can run at a time on k8s
+- Applications can be scheduled via default schedular and few apps can be configured to schedule pointing to custom schedular
+- in pod `spec` -- `schedulerName` property is present to point to specific schedular
+- To check which schedular the pod was used to run `kubectl get events` or MAYBE check the events of the pod? need to check the later part
+- 
 
 
 ## Networking for Kubernetes
@@ -1134,6 +1159,8 @@ spec:
 	- `Delete` (Volume Will be deleted)
 	- `Recycle` (Not everyone supports this) (`rm -rf * ` will be performed and volume is available for others to use)
 	- [Additional Details] (https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming)
+
+
 
 -------------
 #### Additional things to read
