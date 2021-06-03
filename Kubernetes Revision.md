@@ -54,7 +54,7 @@ Udemy Course - Mumshad Mannambeth
 
 ### Additional Details 
 	
-#### ETCD 
+#### ETCD
  - default port 2379
  - etcdctl has 2 version 
    - version 2
@@ -1160,6 +1160,34 @@ spec:
 	- `Recycle` (Not everyone supports this) (`rm -rf * ` will be performed and volume is available for others to use)
 	- [Additional Details] (https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming)
 
+## Cluster Installation
+
+### ETCD
+- Uses RAFT algorithm to select the leader
+- Quorum is minimum nodes required to say write is successful
+- Quorum = N/2 + 1  (1-1, 2-2, 3-2, 4-3, 5-3 etc)
+- Fault Tolerance = No of Instances - Quorum  (1-0, 2-0, 3-1, 4-1, 5-2)
+- Hence recommended to have ODD number of nodes (Network Segments)
+
+
+## Troubleshooting
+- Application Failure
+- Control Plane Failures
+- Worker node Failure
+- Network Troubleshooting
+
+### Application Failure
+- Suppose if a pod is restarting so to view the logs fo previous pod
+
+~~~
+kubectl logs web -f --previous
+~~~
+
+**Note not directly into CKA exam but will be good handy trick**
+
+- If pod is running and there are no debug utilities inside like not even `sh` or `/bin/bash` to login and debug then you can use ephemeral container
+[link] (https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)
+
 
 
 -------------
@@ -1178,6 +1206,8 @@ spec:
 	  - Default is 5 mins
 	  - kube-controller-manager --pod-evection-timeout=5m0s 
 	- PV and PVC if one creates a PV of 100mb and PVC of 50 then the PVC gets 100. will it be same if case of GB? how does that work?
+	- k8s the hardway [link] (https://www.youtube.com/watch?v=uUupRagM7m0&list=PL2We04F3Y_41jYdadX55fdJplDvgNGENo&ab_channel=KodeKloud)
+	  - Video 18 - End to end test case
 
 ----------------
 ### Helpful commands 
@@ -1252,4 +1282,54 @@ kubectl api-resources --namespaced=false # ClusterRole
 
 ### O/P
 You will get apiGroups and Resources from here to be put into Role or ClusterRole Files
+~~~
+
+- Suppose if a pod is restarting so to view the logs fo previous pod
+
+~~~
+kubectl logs web -f --previous
+~~~
+
+- If your pod is not behaving as you expected, it may be that there was an error in your pod description (e.g. mypod.yaml file on your local machine), and that the error was silently ignored when you created the pod. Often a section of the pod description is nested incorrectly, or a key name is typed incorrectly, and so the key is ignored. For example, if you misspelled command as commnd then the pod will be created but will not use the command line you intended it to use.
+
+The first thing to do is to delete your pod and try creating it again with the --validate option. For example, run kubectl apply --validate -f mypod.yaml. If you misspelled command as commnd then will give an error like this
+
+~~~
+kubectl apply --validate -f mypod.yaml
+~~~
+
+- If service is not running properly then you can first check if it has desried number of endpoints (Example  if there are supposed to be 3 pods below the serive then you should see 3 endpoints)
+
+~~~
+kubectl get endpoints ${SERVICE_NAME}
+~~~
+
+- If suppose the above doesnt shows you desired endpoints then probably selectors with service is mismatched or misspelled you can check that
+- If you are missing endpoints, try listing pods using the labels that Service uses. Imagine that you have a Service where the labels are:
+
+~~~
+...
+spec:
+  - selector:
+     name: nginx
+     type: frontend
+~~~
+**Note : No spaces allowed in the ,**
+
+**Also even if endpoints are displayed ports can still be issue**
+
+(Check no 3 qustion again)
+
+~~~
+kubectl get pods --selector=name=nginx,type=frontend
+~~~
+
+- Good way to start trouble shooting is looking at the troubleshooings steps in k8s documents
+
+~~~
+search keyworks like :
+- Troubleshooting application
+- Troubleshooting cluster
+- Troubleshooting services
+- etc
 ~~~
