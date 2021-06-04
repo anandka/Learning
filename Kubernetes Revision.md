@@ -422,8 +422,8 @@ spec:
 - Read about "ip" command this is prefered over ifconfig
 - Read about "route" / "ip route" command
 	- These commands help to create routing tables on the machine
-	- Good Youtube video to understand this [Link] (https://www.youtube.com/watch?v=c4rfWsV4H-I&ab_channel=StevenGordon)
-	- Cheat sheet to understand the commands [Link] (https://access.redhat.com/sites/default/files/attachments/rh_ip_command_cheatsheet_1214_jcs_print.pdf)
+	- Good Youtube video to understand this [Link](https://www.youtube.com/watch?v=c4rfWsV4H-I&ab_channel=StevenGordon)
+	- Cheat sheet to understand the commands [Link](https://access.redhat.com/sites/default/files/attachments/rh_ip_command_cheatsheet_1214_jcs_print.pdf)
 
 ~~~
   ip link			: List and modify interfaces on host
@@ -604,7 +604,7 @@ ip -n red link set veth-blue up
 
 - [TBD ] Some additional pointers to read about IPtables, NAT and Masquerading to make request go outside from NNS via router to internet and back
 - NAT : Network Address Translation generally involves "re-writing the source and/or destination addresses of IP packets as they pass through a router or firewall"
-- Seems to be good cumulative guide for nat [link] (https://www.karlrupp.net/en/computer/nat_tutorial)
+- Seems to be good cumulative guide for nat [link](https://www.karlrupp.net/en/computer/nat_tutorial)
 
 
 
@@ -719,7 +719,7 @@ ping 10-244-2-5.default.pod.cluster.local
 
 ### How entire pod-to-pod (same node), pod-to-pod (different node), pod to service works! 
 
-- After reading all the above pointers its good to go through this [link] (https://sookocheff.com/post/kubernetes/understanding-kubernetes-networking-model/) to understand how it all fits in single picture
+- After reading all the above pointers its good to go through this [link](https://sookocheff.com/post/kubernetes/understanding-kubernetes-networking-model/) to understand how it all fits in single picture
 
 - **My mental model of how it works**
 	- There are 3 set of IP ranges
@@ -934,8 +934,8 @@ kubectl certificate delete <name>
  					 API Groups		(/apps , /networking.k8s.io)
  					     |
  					 Resources		(/deployments,  /replicasets  (from/apps))
- 					 	  |
- 					 	Verbs
+ 					     |
+ 					   Verbs
  	(create, delete, deletecollection, get, list, patch, update, watch)
 ~~~
 
@@ -998,11 +998,11 @@ kubectl  auth can-i get pods --as dev-user -n default
 
 #### Security Context and PSP
 - Why security context and pod security policy (PSP depricated 1.21 and will be removed in 1.25 in favour of Pod Security Standards -- PSS) 
-	- [link] (https://medium.com/nerd-for-tech/getting-started-with-kubernetes-pod-security-context-and-policy-26619529a64b) 
+	- [link](https://medium.com/nerd-for-tech/getting-started-with-kubernetes-pod-security-context-and-policy-26619529a64b) 
 - Security context is at pod level. Security context can also be at container level if this is set then this prevails over pod level
 - PSP is cluster wide. It can control whether a pod can run on the cluster or not depending on the policies set up for the pod
 - Security context
-	- [link] (https://snyk.io/blog/10-kubernetes-security-context-settings-you-should-understand/) 
+	- [link](https://snyk.io/blog/10-kubernetes-security-context-settings-you-should-understand/) 
 
 #### Network Policies
 - By default all pods in Namespace can communicate with all pods across the Namespace
@@ -1140,7 +1140,7 @@ spec:
 	- ReadWriteOnce
 	- ReadWriteMany
 - **Note** : The access mode also depends where you are provisioning the volume. For example like elastic Block Storage (EBS) doesnt supports mount on multiple Ec2 instance so you can only use `ReadWriteOnce`
-- To check which `Volume Plugins` supports what scroll down in this [link] (https://kubernetes.io/docs/concepts/storage/_print/#access-modes)
+- To check which `Volume Plugins` supports what scroll down in this [link](https://kubernetes.io/docs/concepts/storage/_print/#access-modes)
 
 #### Persistent Volume Claims (PVC)
 - PVC and Persistet Volume (PV) are not directly binded to each other
@@ -1186,7 +1186,7 @@ kubectl logs web -f --previous
 **Note not directly into CKA exam but will be good handy trick**
 
 - If pod is running and there are no debug utilities inside like not even `sh` or `/bin/bash` to login and debug then you can use ephemeral container
-[link] (https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)
+[link](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)
 
 
 
@@ -1206,7 +1206,7 @@ kubectl logs web -f --previous
 	  - Default is 5 mins
 	  - kube-controller-manager --pod-evection-timeout=5m0s 
 	- PV and PVC if one creates a PV of 100mb and PVC of 50 then the PVC gets 100. will it be same if case of GB? how does that work?
-	- k8s the hardway [link] (https://www.youtube.com/watch?v=uUupRagM7m0&list=PL2We04F3Y_41jYdadX55fdJplDvgNGENo&ab_channel=KodeKloud)
+	- k8s the hardway [link](https://www.youtube.com/watch?v=uUupRagM7m0&list=PL2We04F3Y_41jYdadX55fdJplDvgNGENo&ab_channel=KodeKloud)
 	  - Video 18 - End to end test case
 
 ----------------
@@ -1233,7 +1233,7 @@ kubectl explain pod --recursive
 #>>> Very useful when you want to see how to structure the defination file on fly 
 ~~~
 
-- To get all the resoruces deployed
+- To get all the resources deployed
 
 ~~~
 kubectl get all 
