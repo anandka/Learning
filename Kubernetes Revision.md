@@ -1006,7 +1006,8 @@ kubectl  auth can-i get pods --as dev-user -n default
 
 #### Network Policies
 - By default all pods in Namespace can communicate with all pods across the Namespace
-- **NOTE: Not all Network Solutions (CNI Plugins) support Netowrk Policies**
+- If you want to control this you can setup Network Policy
+- **NOTE: Not all Network Solutions (CNI Plugins) support Network Policies**
 	- Supported
 		- Kube-router
 		- calico
@@ -1015,8 +1016,7 @@ kubectl  auth can-i get pods --as dev-user -n default
 	- Unsupported
 		- As of now flannel doesnt supports Network Policies
 	- Please check latest documentation when you are selecting it
-	- Even if netowrk Sol. doesnt supports network policy you can still create it as it is k8s resource but it wont be enforced
-- If you want to control this you can setup Network Policy
+	- Even if network Sol. doesnt supports network policy you can still create it. As it is k8s resource but it wont be enforced
 - Network Policy works at Namespace level
 - One can think of Network policy as Security Group of any cloud
 - It has Ingress and Egress rules which you can apply
@@ -1080,7 +1080,7 @@ spec:
 	- `egress`
 		- Same as Ingress
 
-- **Note** just as Json the structuring of `podSelector` and `namespaceSelector ` matters for **AND** and **OR** Rules
+- **Note** just as Json the structuring of `podSelector` and `namespaceSelector ` matters for **AND** & **OR** Rules
 
 
 
@@ -1318,8 +1318,6 @@ spec:
 
 **Also even if endpoints are displayed ports can still be issue**
 
-(Check no 3 qustion again)
-
 ~~~
 kubectl get pods --selector=name=nginx,type=frontend
 ~~~
@@ -1332,4 +1330,11 @@ search keyworks like :
 - Troubleshooting cluster
 - Troubleshooting services
 - etc
+~~~
+
+- Using Jsonpath to get desired o/p
+- To get all the pulled images across all the nodes
+
+~~~
+kubectl get nodes -ojsonpath='{range .items[].status.images[]}{.names[0]}{"\n"}{end}' | sort | uniq
 ~~~
