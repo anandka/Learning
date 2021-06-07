@@ -1,4 +1,4 @@
-# Kubernetes Revision
+# Kubernetes Revision - CKA
 ~~~ 
 Please note this is not exhaustive list.
 But just pointers that I want to remember so I might have used shortcuts or just jotted down points which I feel are important.
@@ -1021,6 +1021,10 @@ kubectl  auth can-i get pods --as dev-user -n default
 - One can think of Network policy as Security Group of any cloud
 - It has Ingress and Egress rules which you can apply
 - `Pod Selectors` is used to select which pods the network policy is applied to
+- In `ingress` and `egress` rules 3 main keywords are
+	- namespaceSelector
+	- podSelector
+	- ipBlock 
 - Example of Network Policy
 
 ~~~
@@ -1081,6 +1085,7 @@ spec:
 		- Same as Ingress
 
 - **Note** just as Json the structuring of `podSelector` and `namespaceSelector ` matters for **AND** & **OR** Rules
+- **Additional Note** The AND and OR rules only applies to different selectors for example `podSelector` and `namespaceSelector`. If `podSelector ` and `podSelector` are used under same rule i.e under one `to` or `from` then they are treated as **OR**
 
 
 
