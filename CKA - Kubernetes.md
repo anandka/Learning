@@ -1343,3 +1343,9 @@ search keyworks like :
 ~~~
 kubectl get nodes -ojsonpath='{range .items[].status.images[]}{.names[0]}{"\n"}{end}' | sort | uniq
 ~~~
+
+- To delete a deployment/ pod immedietly
+
+~~~
+kubectl delete -f app.yaml --force --grace-period=0
+~~~

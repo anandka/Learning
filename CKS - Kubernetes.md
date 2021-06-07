@@ -81,9 +81,11 @@ resources:
 ## Open Policy Agent (OPA)
 - Opensource project can be used in k8s
 - Request flow
-	-
-	-
-	- 	
+	- Authentication
+	- Authorization
+	- Admission Controller
+		- Mutating admission webhook (Checked first) (Ex: Istio automatic injection happens from here)
+		- Validating admission webhook (approves or rejects) (Ex: OPA gatekeeper)
 - Uses Rego language 
 - CRD implentation in k8s called OPA Gatekeeper which uses admission controller in k8s
 
@@ -95,7 +97,8 @@ crd -
 
 - can we create OPA rules tied to Namespaces? Currently all examples are cluster wide
 
-
+- not viewed [link](https://www.youtube.com/watch?v=urvSPmlU69k)
+- caylent read [link](https://caylent.com/leveraging-kubernetes-open-policy-agent)
 
 ## mTLS (mutual TLS)
 - By default in k8s any pod can communicate with any pod and this traffic isnt encrypted
@@ -107,9 +110,16 @@ crd -
 	- Service mesh uses init containers which then play with IPTable rules for the pod to make all the traffic go via the proxy/sidecar container
 	- this container needs `NET_ADMIN` capabilities
 
-
+- Demystifying Istio's Sidecar Injection Model [link](https://istio.io/latest/blog/2019/data-plane-setup/)
 
 
 -----------------
-Misc
-- Logs at `/var/log/pods/` ?		
+
+# Misc Read
+- Logs at `/var/log/pods/` ?
+- Istio [link](https://istio.io/latest/blog/2019/data-plane-setup/)
+	- webhooks namespaceSelector (istio-injection: enabled)
+	- default policy (Configured in the ConfigMap istio-sidecar-injector)
+	- per-pod override annotation (sidecar.istio.io/inject)
+
+- Sections [15, 18,19, ]
