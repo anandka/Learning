@@ -88,11 +88,14 @@ resources:
 		- Validating admission webhook (approves or rejects) (Ex: OPA gatekeeper)
 - Uses Rego language 
 - CRD implentation in k8s called OPA Gatekeeper which uses admission controller in k8s
+- There are 2 CRDs created for OPA
+	- A CRD for declaring the policies (aka “constraint templates”)
+	- A CRD for declaring how and when to enforce those policies (aka “constraints”)
+- It also introduced new audit functionality to allow administrators to see what resources are currently violating any given policy for those things admitted before the policy was enforced
 
 
-Constraint Template
-crd - 
 
+- PSP to gateway policies [link](https://github.com/open-policy-agent/gatekeeper-library/tree/master/library/pod-security-policy)
 - To throw a violation every condition has to be true
 
 - can we create OPA rules tied to Namespaces? Currently all examples are cluster wide
@@ -111,6 +114,93 @@ crd -
 	- this container needs `NET_ADMIN` capabilities
 
 - Demystifying Istio's Sidecar Injection Model [link](https://istio.io/latest/blog/2019/data-plane-setup/)
+
+
+## Runtime Security
+
+### Behavioural analytics at host and container level (s24)
+
+#### Strace 
+
+- one can use strace to get the system calls which are being executed by the process
+
+~~~
+strace ls -l
+strace 
+	-o filename
+	-v verbose
+	-f follow forks
+	
+	-cw (count and summarise) (Gives summary in table of calls vs no of calls)
+	-p pid
+	-P path	
+~~~
+
+#### /proc
+- directory in linux which stores all the process related information
+- directy is created by `pid` id
+- has subdirictories like
+	- fd (open files)
+	- environ (contains env variables) 
+- **using fd if etcd is not encrypted then you can actually see the data like values of secrets created by just having access to the filesystem at host level**
+- one can run `pstree` to get the root process and all its forks to identify which directory to go to in `/proc`
+- `environ` file under the process directory shows all the env variables in plain text
+
+##### Falco (Created by sysdig) [Kubernetes threat detection engine]
+
+- What does Falco do? 
+	- Parsing the Linux system calls from the kernel at runtime
+	- Asserting the stream against a powerful rules engine
+	- Alerting when a rule is violated 
+- What does Falco check for? 
+	- Privilege escalation using privileged containers
+	- Namespace changes using tools like setns
+	- Read/Writes to well-known directories such as /etc, /usr/bin, /usr/sbin, etc
+	- Creating symlinks
+	- Ownership and Mode changes
+	- Unexpected network connections or socket mutations
+	- Spawned processes using execve
+	- Executing shell binaries such as sh, bash, csh, zsh, etc
+	- Executing SSH binaries such as ssh, scp, sftp, etc
+	- Mutating Linux coreutils executables
+	- Mutating login binaries
+	- Mutating shadowutil or passwd executables such as shadowconfig, pwck,chpasswd, getpasswd, change, useradd, etc, and others.
+
+- Sample of syslog what falco does (also gives container id)
+	- `tail -f /var/log/syslog | grep falco`
+	- "Notice a Shell was spawned in a container with an attached terminal"
+	- "Error File below etc opened for writing"
+	- "Error package managment process launched in container"
+- Details [official link](https://falco.org/docs/)
+
+**Falco** can look at the cluster as whole and send out events/alerts depending on if certain container is misbehaving based on the rules
+
+- By default installed under `/etc/falco`
+- Rules
+	- `/etc/falco/falco_rules.yaml`
+	- `/etc/falco/k8s_audit_rules.yaml`
+- Rules have macro and contitions. Conditions can refer to macro for evaluation
+- Has `source` ex : k8s_audit so will work only if k8s auditing is enabled 
+
+
+### Immutability of containers at runtime (s25)
+
+- Container and Pod Level enforcement
+- Ensure pods and containers are immutable
+
+- There is no direct method but some hacks
+
+- at container level
+	- Remove shell / bash
+	- Make filesystem read only
+	- Run as user and not root
+- But at times we dont have control over the docker images
+- At k8s level we can run a `startupProbe` to run commands such as delete the executables or make file system readonly
+- we can use init containers to load information (read write mode) before the main containers start and keep it read only for main container (as storage is shared)
+- We can use `securityContext` to make `readOnlyRootFilesystem` this was in PSP which will be removed hence look at OPA? 
+- **Read more on PSP and securityContext**
+	  
+
 
 
 -----------------

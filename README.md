@@ -179,3 +179,13 @@ Learning materials and points
 
 # Demo hacks! 
 	1. Demo magic - Helps to automate repetable scripts for demo wherein you can just keep pressing enter and it will pretend you are typing [link] (https://github.com/paxtonhare/demo-magic/blob/master/samples/demo-template.sh)
+
+# Shell hacks!
+	1. Suspending a vim to go to terminal and then getting back in at the point where you left
+	[link](https://stackoverflow.com/questions/1879219/how-to-temporarily-exit-vim-and-go-back)
+	
+	~~~
+	press Ctrl+Z in view mode
+	#and to get back type
+	fg
+	~~~
