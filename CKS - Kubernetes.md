@@ -199,9 +199,37 @@ strace
 - we can use init containers to load information (read write mode) before the main containers start and keep it read only for main container (as storage is shared)
 - We can use `securityContext` to make `readOnlyRootFilesystem` this was in PSP which will be removed hence look at OPA? 
 - **Read more on PSP and securityContext**
-	  
+- Read more
+
+### Kernel Hardening Tools (s27)
+
+- App Armour
+- Seccomp
 
 
+		Application
+		 |		|
+		 |	 Libs (glibc)
+		 |	   |
+		Kernel
+		  |
+		 OS
+		 |
+	  Hardware
+
+- Application and Libs are user space
+- Kernel and OS is Kernel spcace
+- Application and libs can talk to kernel and make required calls. But what if we want to restrict applications to make on certain system calls which they are permitted to
+- Thats were we can use Apparmour or seccomp
+- Both of these work in kernel space and restrict or allows calls based on the profiles created
+- There are smart options in app armour where in it can create profile automatically while application is running or pick it up based on system logs
+- While running docker you can specify `--security-opt` some option (Edit modify this)
+- While in k8s you need to use annotations to make sure correct profile is pointed
+- if that profile isnt present on the node container gets stuck into `Blocked` state
+- Apparmour has 3 modes
+	- unconfined  (?)
+	- Complaint (calls can be made but are logged for voilation)
+	- Enforce (doesnt allows call to be made if not allowed)
 
 -----------------
 
