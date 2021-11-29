@@ -67,6 +67,11 @@ Learning materials and points
 		
 	2. Sticky Sessions on Load Balancers : https://shlomoswidler.com/2010/04/elastic-load-balancing-with-sticky-sessions.html
 	
+	3. Good overall read to grasp highlevel thinking for topics related to scaling from atcchitecture prespective
+		Servers, DB's (Replicas and sharding), CloudStorage, Logging, Message brokers, DNS, Caching , System and App monitoring
+
+	https://realscale.cloud66.com/
+
 	
 # Handy Tools/Plugins for browser or codeeditor
 	1. Plugin to highlight references of variables directly in GitHub (browser)
