@@ -184,6 +184,10 @@ Learning materials and points
 
 # Demo hacks! 
 	1. Demo magic - Helps to automate repetable scripts for demo wherein you can just keep pressing enter and it will pretend you are typing [link] (https://github.com/paxtonhare/demo-magic/blob/master/samples/demo-template.sh)
+	
+# Youtube channels
+	1. Quality content (seen videos of mongoose and mongodb) https://www.youtube.com/c/WebDevSimplified
+	
 
 # Shell hacks!
 	1. Suspending a vim to go to terminal and then getting back in at the point where you left
