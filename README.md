@@ -52,6 +52,7 @@ Learning materials and points
 		https://pragmacoders.com/multithreading-go-tutorial/
 # MongoDB- Mongoose
 	1. Understanding discriminator in mongoose - https://anthonychu.ca/post/cosmos-db-mongoose-discriminators/
+	2. things to know with populate to simplify programming -- https://mongoosejs.com/docs/populate.html
 
 # Cloud
 	1. Google cloud : https://medium.com/@grapesfrog/a-gcp-flowchart-a-day-2d57cc109401
