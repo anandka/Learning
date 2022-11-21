@@ -53,6 +53,8 @@ Learning materials and points
 # MongoDB- Mongoose
 	1. Understanding discriminator in mongoose - https://anthonychu.ca/post/cosmos-db-mongoose-discriminators/
 	2. things to know with populate to simplify programming -- https://mongoosejs.com/docs/populate.html
+	3. Aggegration : https://www.digitalocean.com/community/tutorials/how-to-use-aggregations-in-mongodb
+	4. misc things to understand : https://data-flair.training/blogs/mongodb-aggregation-tutorial/#:~:text=MongoDB%20can%20perform%20aggregation%20in,Single%20Purpose%20Aggregation%20Method
 
 # Cloud
 	1. Google cloud : https://medium.com/@grapesfrog/a-gcp-flowchart-a-day-2d57cc109401
