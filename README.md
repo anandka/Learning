@@ -201,3 +201,10 @@ Learning materials and points
 	#and to get back type
 	fg
 	~~~
+	
+# GraphQL
+	- have read multiple things but never found good articles to understand it
+	- but below are couple of things which got me some understanding why its needed. [But HOW part is still pending]
+	- nevertheless its still a good starting point
+		- https://rapidapi.com/guides/intro-to-graphql
+		- https://rapidapi.com/guides/what-is-graphql-and-when-you-should-use-it?utm_source=RapidAPI.com/guides&utm_medium=DevRel&utm_campaign=DevRel
