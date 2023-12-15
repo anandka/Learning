@@ -167,7 +167,8 @@ Learning materials and points
 	2. Intermediate
 		2.1 Taints and tolerance
 		https://www.youtube.com/watch?v=j3KfwvABCbQ&list=PL2We04F3Y_43dAehLMT5GxJhtk3mJtkl5&index=15
-	3.  k8s-ingress-tls-termination https://www.edc4it.com/blog/k8s-ingress-tls-termination
+	3.  k8s-ingress-tls-termination 
+ https://www.edc4it.com/blog/k8s-ingress-tls-termination
 		
 # Self Signed Certificates
 	1. Understanding how CA and certificates works
