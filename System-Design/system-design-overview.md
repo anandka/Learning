@@ -39,3 +39,14 @@
   - Partitioning
   - Sharding
   - Indexing
+
+# Cap Theorem
+  - Good video to recap along with example [ByteByteGo](https://www.youtube.com/watch?v=BHqjEjzAicA&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=13)
+
+
+# Queues
+  - Kafka
+      - why is kafka fast? [Byte](https://www.youtube.com/watch?v=UNUz1-msbOM&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=21)
+          - 2 main pointers among many others
+            - Sequential reads (about 10-100 times faster then Random reads)
+            - Direct Memory Access [DMA]
