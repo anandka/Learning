@@ -94,6 +94,7 @@ Learning materials and points
 			https://youtu.be/4784u5PRc5o
 	2. GRPC -  after you read general stuff on internet and dont understand whats it all (atleast happened to me) but please try 			   first. and then go and watch this video and things start to make sense 
 		https://youtu.be/RoXT_Rkg8LA
+  		[ByteByteGo Video on GRPC](https://www.youtube.com/watch?v=gnchfOojMk4&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=16)
 	3. Json paths and queries:  Guide which explains as well as gives practice tests (Please go through all videos and tests)
 	    Highly recommended [link](https://kodekloud.com/courses/635226/lectures/11338834)
 
