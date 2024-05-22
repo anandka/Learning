@@ -69,11 +69,12 @@ Learning materials and points
 		A nice and concise article to understand Architecture. Includes caching, proxies, microservices, db-particians/Indexes, Queues etc.
 		
 	2. Sticky Sessions on Load Balancers : https://shlomoswidler.com/2010/04/elastic-load-balancing-with-sticky-sessions.html
+ 	3. Forward and Reverse Proxies [ByteByteGo](https://www.youtube.com/watch?v=4NB0NDtOwIQ&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=19)
 	
-	3. Good overall read to grasp highlevel thinking for topics related to scaling from atcchitecture prespective
+	3. Good overall read to grasp highlevel thinking for topics related to scaling from architecture prespective
 		Servers, DB's (Replicas and sharding), CloudStorage, Logging, Message brokers, DNS, Caching , System and App monitoring
 
-	https://realscale.cloud66.com/
+	[Link](https://realscale.cloud66.com/)
 
 	
 # Handy Tools/Plugins for browser or codeeditor
