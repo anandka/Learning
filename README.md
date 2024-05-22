@@ -98,6 +98,8 @@ Learning materials and points
   		[ByteByteGo Video on GRPC](https://www.youtube.com/watch?v=gnchfOojMk4&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=16)
 	3. Json paths and queries:  Guide which explains as well as gives practice tests (Please go through all videos and tests)
 	    Highly recommended [link](https://kodekloud.com/courses/635226/lectures/11338834)
+     	4. How to store password securly in DB?
+      		- One way Hash, modern hash function (eg Bcrypt) + Salt [Youtube Video](https://www.youtube.com/watch?v=zt8Cocdy15c&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=23)
 
 # Jenkins
 	1. BlueOcean: 
