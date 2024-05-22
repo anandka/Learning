@@ -24,7 +24,11 @@
   - Elastic search -- Works on Apache Lucene
     - Fuzzy search 
     - Inverted Index
-    -
+    - Why is ElasticSearch Fast? [Link](https://www.encora.com/insights/elasticsearch-demystified-part-1)
+  - NoSQL Generic 
+    - Why is NoSQl fast?
+      - LSM tree and SS table [Log Structure Merge Tree and Sorted String table] [Link](https://medium.com/@dwivedi.ankit21/lsm-trees-the-go-to-data-structure-for-databases-search-engines-and-more-c3a48fa469d2)
+      - 
 
 # Properties on DB's
   - Partitioning
