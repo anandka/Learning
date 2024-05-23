@@ -44,7 +44,7 @@
   - Good video to recap along with example [ByteByteGo](https://www.youtube.com/watch?v=BHqjEjzAicA&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=13)
 
 
-# Queues
+# Queues / Event Streams / Pub-Sub
   - Kafka
       - why is kafka fast? [Byte](https://www.youtube.com/watch?v=UNUz1-msbOM&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=21)
           - 2 main pointers among many others
