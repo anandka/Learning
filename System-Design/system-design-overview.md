@@ -38,7 +38,15 @@
 # Properties on DB's
   - Partitioning
   - Sharding
-    - Highlevel overview of sharding [AWS Link](https://aws.amazon.com/what-is/database-sharding/) 
+    - Highlevel overview of sharding [AWS Link](https://aws.amazon.com/what-is/database-sharding/)
+    - Types of sharding
+      - Range Based Sharding (Based on some column's range)
+      - Hashed Sharding (Hashing one of the column's data)
+      - Directory Sharding (Having a external directory like phonebook to know which data goes in which shard)
+      - Geo Sharding (Based on location)
+    - Challanges with Sharding
+      - Data Hotspots (To overcome shard key must be good)
+      - Disbalanced shard (To overcome shard key must be good)
   - Indexing
 
 # Cap Theorem
