@@ -50,7 +50,10 @@
       - Disbalanced shard (To overcome shard key must be good)
   - Indexing
 
-# Cap Theorem
+# CAP Theorem
+  - Consistency, Availability, Partition Tolerance.
+  - We can usually have CP or PA but never CA
+  - Also when designing a system think that CAP is not required for all components you can divide the system into multiple parts and then decide on CP or PA for each individual parts 
   - Good video to recap along with example [ByteByteGo](https://www.youtube.com/watch?v=BHqjEjzAicA&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=13)
 
 
