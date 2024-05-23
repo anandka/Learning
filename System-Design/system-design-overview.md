@@ -38,6 +38,7 @@
 # Properties on DB's
   - Partitioning
   - Sharding
+    - Highlevel overview of sharding [AWS Link](https://aws.amazon.com/what-is/database-sharding/) 
   - Indexing
 
 # Cap Theorem
