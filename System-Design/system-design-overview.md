@@ -44,6 +44,7 @@
       - Hashed Sharding (Hashing one of the column's data)
       - Directory Sharding (Having a external directory like phonebook to know which data goes in which shard)
       - Geo Sharding (Based on location)
+      - Entity-/relationship-based sharding [Read Sharding architecture and types](https://www.mongodb.com/resources/products/capabilities/database-sharding-explained)
     - Challanges with Sharding
       - Data Hotspots (To overcome shard key must be good)
       - Disbalanced shard (To overcome shard key must be good)
